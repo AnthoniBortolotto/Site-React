@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/Index.tsx',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js'
@@ -8,7 +8,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)x?$/,
+        test: /\.(js|ts)x?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -17,7 +17,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.jsx', '.js'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
