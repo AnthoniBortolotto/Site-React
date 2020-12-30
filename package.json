@@ -6,6 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "anthoni Bortolotto Martinelli <antho@outlook.com.br>",
+  "license": "ISC",
+  "repository": {
+    "url": "https://github.com/AnthoniBortolotto/Site-React.git",
+    "type": "git"
+  },
+  "dependencies": {
+    "webpack-cli": "^4.3.0",
+    "webpack-dev-server": "^3.11.1"
+  }
 }
