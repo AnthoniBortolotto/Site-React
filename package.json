@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack serve --open --hot",
+    "build": "webpack --mode production --progress --hide-modules"
   },
   "author": "anthoni Bortolotto Martinelli <antho@outlook.com.br>",
   "license": "ISC",
@@ -12,8 +13,11 @@
     "url": "https://github.com/AnthoniBortolotto/Site-React.git",
     "type": "git"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "webpack-cli": "^4.3.0",
-    "webpack-dev-server": "^3.11.1"
+    "webpack-dev-middleware": "^4.0.2",
+    "webpack-dev-server": "^3.11.1",
+    "webpack-hot-middleware": "^2.25.0"
   }
 }
