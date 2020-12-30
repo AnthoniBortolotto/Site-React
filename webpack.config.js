@@ -14,6 +14,11 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/,
+        exclude: [/node_modules/],
+        use: ['style-loader', 'css-loader']
+      }
     ],
   },
   resolve: {
@@ -21,5 +26,6 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
-  }
+  },
+  
 }
