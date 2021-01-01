@@ -4,11 +4,11 @@ import "./css/form-add.css";
 import "./css/index.css";
 import "./css/menu.css";
 import "./css/tabela.css";
-
+import logo from "./img/logo.jpg";
 export const App: React.FC<{}> = () => (
   <>
   <header className="toast-header">
-        <img alt="Logo" src="./img/logo.jpg" />
+        <img alt="Logo" src={logo} />
         <nav className="navbar-dark nav menu">
             <ul className="lista__menu">
                 <li className="lista__menu__item"><a className="btn btn-info lista__menu__item__ancora">Inicio</a></li>
@@ -17,7 +17,6 @@ export const App: React.FC<{}> = () => (
             </ul>
         </nav>
     </header>
-
     <section className="produtos">
     </section>
     <footer className="border-top rodape">

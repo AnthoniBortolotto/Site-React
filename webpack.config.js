@@ -17,8 +17,18 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: [/node_modules/],
-        use: ['file-loader','style-loader', 'css-loader']
-      }
+        use: ['style-loader', 'css-loader']
+      },
+      // {
+      //   test: /\.jpg|svg|png$/,
+      //   exclude: [/node_modules/],
+      //   use: ['file-loader']
+      // },
+      {
+        test: /\.jpg|svg|png$/,
+        exclude: [/node_modules/],
+        use: ['url-loader']
+      },
     ],
   },
   resolve: {
