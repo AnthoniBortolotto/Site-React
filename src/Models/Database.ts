@@ -9,7 +9,6 @@ class Database
         let key = 0;
         return keys(this.ObterDB()).then(res => {
             res.forEach(chave => {
-                console.log(chave);
                 key++;
             })
         }).then(res => {return key}); 
@@ -21,9 +20,27 @@ class Database
         key.then(res => set(res, produto, this.ObterDB()));
     }
     
-    public static dadosTabela()
+    public static async dadosTabela()
     {
-    
+        let produtos:Array<any> = [];
+        let key = 0;
+        let produto;
+        let keyDisponivel = await this.keyDisponivel();
+        while(key < keyDisponivel);
+        {
+            let objeto = await get(key, this.ObterDB());
+            produtos.push(objeto);
+            key++;
+        }
+        await console.log(produtos);
+        // this.keyDisponivel().then(res => {
+        //     while(res !== key)
+        //     {
+        //         get(key, this.ObterDB()).then(valor => produtos.push(valor))
+        //     }
+        //     console.log(produtos);
+        //     return produtos;
+        // })
     }
 }
 export default Database;

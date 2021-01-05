@@ -28,7 +28,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         let prcComp = $("#txt-prc-comp").val() as string;
         let prcVend = $("#txt-prc-vend").val() as string;
         Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
-       return <Redirect to="/Adicionar"/>
+      // return <Redirect to="/Adicionar"/>
     }
     render() {
         return ( 
