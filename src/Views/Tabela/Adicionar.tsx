@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import $ from 'jquery';
-import "../../utils/css/bootstrap.min.css";
-import "../../utils/css/form-add.css";
-import "../../utils/css/index.css";
-import "../../utils/css/menu.css";
-import "../../utils/css/tabela.css";
+
 import Cabecario from "../Header/Cabecario";
 import Rodape from "../Footer/Rodape";
 import Database from "../../Models/Database";
@@ -45,7 +41,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             <label className="formulario__etiqueta form-check-label">Preço de Venda:</label>
             <input type="text" id="txt-prc-vend" className="formulario__txt"/>
             <Link  onClick={this.eventoBtnAdd.bind(this)} to="/" type="button" id="btn-add" className="btn btn-info formulario__btn__add">Adicionar</Link>
-            <Link to="/" type="button" id="btn-voltar"  className="btn btn-danger formulario__btn__voltar"></Link>
+            <Link to="/" type="button" id="btn-voltar"  className="btn btn-danger formulario__btn__voltar">Voltar</Link>
         </form> 
         
         </section>
