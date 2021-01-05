@@ -10,6 +10,7 @@ import Cabecario from "../Header/Cabecario";
 import Rodape from "../Footer/Rodape";
 import Database from "../../Models/Database";
 import Produto from '../../Models/Produto';
+import { Redirect } from 'react-router-dom';
 
 export interface AdicionarProps {
     
@@ -22,16 +23,12 @@ export interface AdicionarState {
 class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
     eventoBtnAdd()
     {
-        console.log("clicou");
         let nome = $("#txt-nome").val() as string;
-        console.log(nome);
         let qtd = $("#txt-qtd").val() as string;
-        console.log(qtd);
         let prcComp = $("#txt-prc-comp").val() as string;
-        console.log(prcComp);
         let prcVend = $("#txt-prc-vend").val() as string;
-        console.log(prcVend);
         Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
+       return <Redirect to="/Adicionar"/>
     }
     render() {
         return ( 

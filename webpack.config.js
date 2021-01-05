@@ -1,6 +1,11 @@
 const path = require('path')
 module.exports = {
-  entry: './src/Controllers/Index.tsx',
+  entry: {
+      home: path.resolve(__dirname,'./src/Controllers/Index.tsx'),
+    //   adicionar: path.resolve(__dirname,'./src/Views/Tabela/Adicionar.tsx'),
+    //  // Tabela: './src/Views/Tabela/Tabela.tsx',
+    //   NotFound: path.resolve(__dirname,'./src/Views/NotFound/PaginaNaoEncontrada.tsx')
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js'

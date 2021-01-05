@@ -29,10 +29,10 @@ import PaginaNaoEncontrada from "../Views/NotFound/PaginaNaoEncontrada";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-        <Route path='/' exact={true} component={App} />
-        <Route path='/Adicionar' component={Adicionar} />
+        <Route path='/' exact={true} component={Adicionar} />
+        <Route path='/Adicionar' component={App} />
         <Route component={PaginaNaoEncontrada}/>
         </Switch>
         </BrowserRouter>,
-  document.getElementById('app'),
+  document.getElementById('app')
 );

@@ -1,30 +1,24 @@
 import Produto from "./Produto";
-import {Store, set, get} from "idb-keyval";
+import {Store, set, get, keys} from "idb-keyval";
 class Database
 {
     private static ObterDB(): Store{
         return new Store('Loja', 'Estoque');
     }
-    private static keyDisponivel() : number{
+    private static keyDisponivel(){
         let key = 0;
-        let valorStore = get(key, this.ObterDB())
-        let existe = false;
-        do{
-            valorStore.then(res => {
-                if(res === undefined) existe = false
-                else{ 
-                    existe = true;
-                    key++;
-                };
-            });
-        }while(existe);
-        return ++key;   
+        return keys(this.ObterDB()).then(res => {
+            res.forEach(chave => {
+                console.log(chave);
+                key++;
+            })
+        }).then(res => {return key}); 
     }
     
     public static adicionarProduto(produto:Produto):void
     {
         let key = this.keyDisponivel(); 
-        set(key,produto, this.ObterDB());
+        key.then(res => set(res, produto, this.ObterDB()));
     }
     
     public static dadosTabela()
