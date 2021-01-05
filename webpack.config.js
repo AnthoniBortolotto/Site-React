@@ -1,4 +1,5 @@
 const path = require('path')
+//const plugins = [];
 module.exports = {
   entry: {
       home: path.resolve(__dirname,'./src/Controllers/Index.tsx'),
@@ -41,6 +42,6 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
-  },
+  }
   
 }
