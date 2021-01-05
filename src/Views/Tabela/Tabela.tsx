@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import React, { Component, lazy } from 'react'
+import { Link, Route } from 'react-router-dom';
 import Database from "../../Models/Database";
 import Produto from "../../Models/Produto";
+import Adicionar from './Adicionar';
+//const Adicionar = lazy(() => import("./Adicionar"));
 export interface TabelaProps {
 
 }
@@ -47,7 +49,9 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                     <tbody id="corpo-tabela">
                     </tbody>
                 </table>
-                <input type="button" id="btn-pag-add" className="btn btn-info botao-add" value="Adicionar Produto" />
+                
+                <Link to="/Adicionar" id="btn-pag-add" className="btn btn-info botao-add">adicionarProduto</Link>
+                
             </section>);
     }
 }

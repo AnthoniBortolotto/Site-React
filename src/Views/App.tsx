@@ -22,9 +22,7 @@ class App extends React.Component<Props, State> {
     render() {
         return (
             <>
-            <Cabecario/>
             <Tabela />
-            <Rodape/>
             </>
          );
     }
