@@ -20,27 +20,20 @@ class Database
         key.then(res => set(res, produto, this.ObterDB()));
     }
     
-    public static async dadosTabela()
+    public static async dadosTabela(): Promise<unknown[]>
     {
-        let produtos:Array<any> = [];
+        let produtos:Array<unknown> = [];
         let key = 0;
-        let produto;
         let keyDisponivel = await this.keyDisponivel();
-        while(key < keyDisponivel);
+        await console.log(keyDisponivel);
+        let objeto = await get(key, this.ObterDB());
+        while(objeto !== undefined)
         {
-            let objeto = await get(key, this.ObterDB());
-            produtos.push(objeto);
+            await produtos.push(objeto);
             key++;
+            objeto = await get(key, this.ObterDB());
         }
-        await console.log(produtos);
-        // this.keyDisponivel().then(res => {
-        //     while(res !== key)
-        //     {
-        //         get(key, this.ObterDB()).then(valor => produtos.push(valor))
-        //     }
-        //     console.log(produtos);
-        //     return produtos;
-        // })
+        return produtos;
     }
 }
 export default Database;

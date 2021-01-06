@@ -28,8 +28,14 @@ export interface TabelaState {
 // }
 
 class Tabela extends React.Component<TabelaProps, TabelaState> {
+    constructor(props:TabelaProps){
+        super(props);
+        this.state = {
+            produtos: []
+        }
+    }
     render() {
-        //Database.dadosTabela()
+        Database.dadosTabela().then(res => console.log(res));
         return (
             <section className="produtos">
 
