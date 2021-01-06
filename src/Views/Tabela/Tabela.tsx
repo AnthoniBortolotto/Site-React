@@ -7,7 +7,7 @@ export interface TabelaProps {
 }
 
 export interface TabelaState {
-
+    produtos: unknown[]
 }
 // function sobrouAntes()
 // {
@@ -30,12 +30,22 @@ export interface TabelaState {
 class Tabela extends React.Component<TabelaProps, TabelaState> {
     constructor(props:TabelaProps){
         super(props);
+
         this.state = {
             produtos: []
         }
+        this.atualizarProdutos();
+        
     }
+    private atualizarProdutos():void
+    {
+        Database.dadosTabela().then(res => {
+            this.setState({produtos: res})
+        });
+    }
+   
     render() {
-        Database.dadosTabela().then(res => console.log(res));
+        console.log(this.state.produtos);
         return (
             <section className="produtos">
 
