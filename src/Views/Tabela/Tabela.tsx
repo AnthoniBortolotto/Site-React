@@ -9,23 +9,6 @@ export interface TabelaProps {
 export interface TabelaState {
     produtos: unknown[]
 }
-// function sobrouAntes()
-// {
-//     return(
-//         Database.dadosTabela().then(res => {
-//                   res.map(dado => {
-//                       <tr>
-//                           <td>${dado.nome}</td>
-//                           <td>${dado.qtd}</td>
-//                           <td>${dado.prcComp}</td>
-//                           <td>${dado.prcVend}</td>
-//                           <td><a className="tabela__icone-lapis"></a><a className="tabela__icone-lixo"></a></td>
-//                       </tr>
-//                   })
-//               })
-//     )
-        
-// }
 
 class Tabela extends React.Component<TabelaProps, TabelaState> {
     constructor(props:TabelaProps){
@@ -43,9 +26,22 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             this.setState({produtos: res})
         });
     }
+    private montarTabela(): JSX.Element[]{
+        return (
+            this.state.produtos.map((dado:any, index) => {
+                return (
+                            <tr key={index}>
+                           <td key={index}>{dado.nome}</td>
+                           <td key={index}>{dado.qtd}</td>
+                           <td key={index}>R$ {dado.prcComp}</td>
+                           <td key={index}>R$ {dado.prcVend}</td>
+                           <td><Link to={{pathname: '/Editar', state: {id: index}}} className="tabela__icone-lapis"></Link><Link to={{pathname: '/Deletar', state: {id: index}}} className="tabela__icone-lixo"></Link></td>
+                       </tr>)
+            })
+        )
+    }
    
-    render() {
-        console.log(this.state.produtos);
+    render(): JSX.Element {
         return (
             <section className="produtos">
 
@@ -61,6 +57,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         </tr>
                     </thead>
                     <tbody id="corpo-tabela">
+                        {this.montarTabela()}
                     </tbody>
                 </table>
                 

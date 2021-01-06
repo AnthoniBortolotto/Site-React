@@ -9,6 +9,8 @@ import "../utils/css/form-add.css";
 import "../utils/css/index.css";
 import "../utils/css/menu.css";
 import "../utils/css/tabela.css";
+const Deletar = lazy(() => import('../Views/Tabela/Deletar'));
+const Editar = lazy(() => import('../Views/Tabela/Editar'));
 
 const PaginaNaoEncontrada = lazy(() => import("../Views/NotFound/PaginaNaoEncontrada"));
 const Adicionar = lazy(() => import("../Views/Tabela/Adicionar"));
@@ -19,6 +21,8 @@ ReactDOM.render(
     <Switch>
         <Route path='/' exact={true} component={App} />
         <Route path='/Adicionar' component={Adicionar} />
+        <Route path='/Editar' component={Editar} />
+        <Route path='/Deletar' component={Deletar} />
         <Route component={PaginaNaoEncontrada}/>
         </Switch>
         </BrowserRouter>

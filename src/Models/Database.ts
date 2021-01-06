@@ -24,7 +24,6 @@ class Database
     {
         let produtos:Array<unknown> = [];
         let key = 0;
-        let keyDisponivel = await this.keyDisponivel();
         let objeto = await get(key, this.ObterDB());
         while(objeto !== undefined)
         {
