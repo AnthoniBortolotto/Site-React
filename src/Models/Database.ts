@@ -1,69 +1,61 @@
 import Produto from "./Produto";
-import {Store, set, get, keys, del} from "idb-keyval";
-class Database
-{
-    private static ObterDB(): Store{
+import { Store, set, get, keys, del } from "idb-keyval";
+class Database {
+    private static ObterDB(): Store {
         return new Store('Loja', 'Estoque');
     }
-    private static keyDisponivel(){
+    private static keyDisponivel() {
         let key = 0;
         return keys(this.ObterDB()).then(res => {
             res.forEach(chave => {
                 key++;
             })
-        }).then(res => {return key}); 
+        }).then(res => { return key });
     }
-    
-    public static adicionarProduto(produto:Produto):void
-    {
-        let key = this.keyDisponivel(); 
+
+    public static adicionarProduto(produto: Produto): void {
+        let key = this.keyDisponivel();
         key.then(res => set(res, produto, this.ObterDB()));
     }
-    public static async obterProduto(id:number): Promise<Produto>
-    {
+    public static async obterProduto(id: number): Promise<Produto> {
         return await get(id, this.ObterDB());
     }
-    
-    public static async procurarProduto(nome:string): Promise<boolean>
-    {
+
+    public static async procurarProduto(nome: string): Promise<boolean> {
         let key = 0;
         let objeto = await get(key, this.ObterDB()) as Produto;
-        while(objeto !== undefined)
-        {
-            if(objeto.nome == nome) return true
+        while (objeto !== undefined) {
+            if (objeto.nome == nome) return true
             key++;
             objeto = await get(key, this.ObterDB());
         }
         return false;
     }
-    public static async procurarProdutoEditar(nome:string, nomeOriginal:string): Promise<boolean>
-    {
+    public static async procurarProdutoEditar(nome: string, nomeOriginal: string): Promise<boolean> {
         let key = 0;
         let objeto = await get(key, this.ObterDB()) as Produto;
-        while(objeto !== undefined)
-        {
-            if(objeto.nome === nome && objeto.nome !== nomeOriginal) return true
+        while (objeto !== undefined) {
+            if (objeto.nome === nome && objeto.nome !== nomeOriginal) return true
             key++;
             objeto = await get(key, this.ObterDB());
         }
         return false;
     }
-    public static deletarProduto(id:number): void{
+    public static deletarProduto(id: number): void {
         let idAtual = id++;
         this.obterProduto(idAtual);
 
     }
     //Edita o produto desejado inserindo a posição e produto novo.
-    public static editarProduto(id:number, produtoNovo:Produto):void{
-        set(id,produtoNovo, this.ObterDB());
+    public static editarProduto(id: number, produtoNovo: Produto): void {
+        del(id, this.ObterDB());
+        set(id, produtoNovo, this.ObterDB());
     }
-    public static async dadosTabela(): Promise<unknown[]>
-    {
-        let produtos:Array<unknown> = [];
+    public static async dadosTabela(): Promise<unknown[]> {
+        let produtos: Array<unknown> = [];
         let key = 0;
         let objeto = await get(key, this.ObterDB());
-        while(objeto !== undefined)
-        {
+        while (objeto !== undefined) {
             await produtos.push(objeto);
             key++;
             objeto = await get(key, this.ObterDB());

@@ -11,36 +11,35 @@ export interface TabelaState {
 }
 
 class Tabela extends React.Component<TabelaProps, TabelaState> {
-    constructor(props:TabelaProps){
+    constructor(props: TabelaProps) {
         super(props);
 
         this.state = {
             produtos: []
         }
         this.atualizarProdutos();
-        
+
     }
-    private atualizarProdutos():void
-    {
+    private atualizarProdutos(): void {
         Database.dadosTabela().then(res => {
-            this.setState({produtos: res})
+            this.setState({ produtos: res })
         });
     }
-    private montarTabela(): JSX.Element[]{
+    private montarTabela(): JSX.Element[] {
         return (
-            this.state.produtos.map((dado:any, index) => {
+            this.state.produtos.map((dado: any, index) => {
                 return (
-                            <tr key={index}>
-                           <td key={index}>{dado.nome}</td>
-                           <td key={index}>{dado.qtd}</td>
-                           <td key={index}>R$ {dado.prcComp}</td>
-                           <td key={index}>R$ {dado.prcVend}</td>
-                           <td><Link to={{pathname: '/Editar', state: {id: index}}} className="tabela__icone-lapis"></Link><Link to={{pathname: '/Deletar', state: {id: index , produto: Database.obterProduto(index)}}} className="tabela__icone-lixo"></Link></td>
-                       </tr>)
+                    <tr key={index}>
+                        <td key={index}>{dado.nome}</td>
+                        <td key={index}>{dado.qtd}</td>
+                        <td key={index}>R$ {dado.prcComp}</td>
+                        <td key={index}>R$ {dado.prcVend}</td>
+                        <td><Link to={{ pathname: '/Editar', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index, produto: Database.obterProduto(index) } }} className="tabela__icone-lixo"></Link></td>
+                    </tr>)
             })
         )
     }
-   
+
     render(): JSX.Element {
         return (
             <section className="produtos">
@@ -60,9 +59,9 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         {this.montarTabela()}
                     </tbody>
                 </table>
-                
+
                 <Link to="/Adicionar" type="button" id="btn-pag-add" className="btn btn-info botao-add">Adicionar Produto</Link>
-                
+
             </section>);
     }
 }
