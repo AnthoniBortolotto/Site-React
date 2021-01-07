@@ -23,6 +23,31 @@ class Database
     {
         return await get(id, this.ObterDB());
     }
+    
+    public static async procurarProduto(nome:string): Promise<boolean>
+    {
+        let key = 0;
+        let objeto = await get(key, this.ObterDB()) as Produto;
+        while(objeto !== undefined)
+        {
+            if(objeto.nome == nome) return true
+            key++;
+            objeto = await get(key, this.ObterDB());
+        }
+        return false;
+    }
+    public static async procurarProdutoEditar(nome:string, nomeOriginal:string): Promise<boolean>
+    {
+        let key = 0;
+        let objeto = await get(key, this.ObterDB()) as Produto;
+        while(objeto !== undefined)
+        {
+            if(objeto.nome === nome && objeto.nome !== nomeOriginal) return true
+            key++;
+            objeto = await get(key, this.ObterDB());
+        }
+        return false;
+    }
     public static deletarProduto(id:number): void{
         let idAtual = id++;
         this.obterProduto(idAtual);

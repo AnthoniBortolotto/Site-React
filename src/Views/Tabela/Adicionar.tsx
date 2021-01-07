@@ -7,6 +7,7 @@ import Rodape from "../Footer/Rodape";
 import Database from "../../Models/Database";
 import Produto from '../../Models/Produto';
 import { Link, Redirect } from 'react-router-dom';
+import Verificacao from '../../Models/Verificacao';
 
 export interface AdicionarProps {
     
@@ -23,8 +24,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         let qtd = $("#txt-qtd").val() as string;
         let prcComp = $("#txt-prc-comp").val() as string;
         let prcVend = $("#txt-prc-vend").val() as string;
-        Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
-      // return <Redirect to="/Adicionar"/>
+        
     }
     render() {
         return ( 

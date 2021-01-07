@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import Database from '../../Models/Database';
 import Produto from '../../Models/Produto';
+import Verificacao from '../../Models/Verificacao';
 
 
 export interface IEditarState{
@@ -16,6 +17,7 @@ export interface EditarProps {
  
 export interface EditarState {
     nome:string,
+    nomeOriginal:string,
     quantidade:string,
     precoCompra:string,
     precoVenda:string
@@ -27,6 +29,7 @@ class Editar extends React.Component<EditarProps, EditarState> {
         super(props)
             this.state = {
                 nome: "",
+                nomeOriginal: "",
                 quantidade: '0',
                 precoCompra: '0',
                 precoVenda:  '0'
@@ -42,15 +45,24 @@ class Editar extends React.Component<EditarProps, EditarState> {
         Database.obterProduto(id).then(res =>{
             this.setState({
                 nome: res.nome,
+                nomeOriginal: res.nome,
                 quantidade: res.qtd.toString(),
                 precoCompra: res.prcComp.toString(),
                 precoVenda: res.prcVend.toString()
             })
         });
     }
-    private eventoBtnEdt(){
+    private eventoBtnEdt(event:any){
+        event.preventDefault(); //funciona
+        let mensagens:string[] = [];
         const {id} = this.props.location.state;
-        Database.editarProduto( id ,new Produto(this.state.nome, parseInt(this.state.quantidade),parseFloat(this.state.precoCompra),parseFloat(this.state.precoVenda)));
+        Verificacao.verificarNomeEditar(this.state.nome, mensagens, this.state.nomeOriginal)
+        .then(msgs =>{
+            console.log(msgs);
+            if(msgs.length == 0) console.log("tudo certo");
+        });
+        
+       // Database.editarProduto( id ,new Produto(this.state.nome, parseInt(this.state.quantidade),parseFloat(this.state.precoCompra),parseFloat(this.state.precoVenda)));
     }
     private handlerTxtQtd(e:React.ChangeEvent<HTMLInputElement>){
         console.log(e.target.value);
