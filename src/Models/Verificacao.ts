@@ -26,7 +26,7 @@ class Verificacao{
     public static async verificarNomeEditar(nome:string, mensagens:Array<string>, nomeOriginal:string): Promise<string[]>
     {
         if(nome == ""){
-            mensagens.push("todos os campos devem estar preenchidos");
+            mensagens.push("O campo nome deve estar preenchido");
         }
         else if(/[^a-z|A-Z|ã|â|ê|õ|ç]/.test(nome))
         {
@@ -43,17 +43,40 @@ class Verificacao{
         }
         return mensagens
     } 
-    static verificarQtd(qtd:string): boolean
+    static verificarQtd(qtd:string, mensagens:Array<string>): string[]
     {
-        return false;
+        if(qtd == ""){
+            mensagens.push("O campo quantidade deve estar preenchido");
+        }
+        else if(/[^\d]/.test(qtd))
+        {
+            mensagens.push("Apenas numeros são permitidos no campo quantidade");
+        }
+        return mensagens;
     } 
-    static verificarPrcComp(prc:string): boolean
+    static verificarPrcComp(prc:string , mensagens:Array<string>): string[]
     {
-        return false;
+        if(prc == "")
+        {
+            mensagens.push("O campo Preço de compra deve estar preenchido");
+        }
+        else if(!/^\d+(.\d\d)?$/.test(prc))
+        {
+            mensagens.push("Você precisa digitar um preço de compra válido");
+        }
+        return mensagens;
     }
-    static verificarPrcVend(prc:string): boolean
+    static verificarPrcVend(prc:string, mensagens:Array<string>): string[]
     {
-        return false;
+        if(prc == "")
+        {
+            mensagens.push("O campo Preço de venda deve estar preenchido");
+        }
+        else if(!/^\d+(.\d\d)?$/.test(prc))
+        {
+            mensagens.push("Você precisa digitar um preço de venda válido");
+        }
+        return mensagens;
     }
 }
 export default Verificacao;

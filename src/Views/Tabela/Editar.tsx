@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, lazy } from 'react'
 import { Link } from 'react-router-dom';
 import Database from '../../Models/Database';
-import Produto from '../../Models/Produto';
 import Verificacao from '../../Models/Verificacao';
+//import Mensagens from './auxiliares/mensagens';
+const Mensagens = lazy(() => import("./auxiliares/mensagens"));
 
 
 export interface IEditarState{
@@ -20,7 +21,8 @@ export interface EditarState {
     nomeOriginal:string,
     quantidade:string,
     precoCompra:string,
-    precoVenda:string
+    precoVenda:string,
+    msgs:Array<string>
 }
  
 class Editar extends React.Component<EditarProps, EditarState> {
@@ -32,7 +34,8 @@ class Editar extends React.Component<EditarProps, EditarState> {
                 nomeOriginal: "",
                 quantidade: '0',
                 precoCompra: '0',
-                precoVenda:  '0'
+                precoVenda:  '0',
+                msgs: []
             }
         this.atualizaDados();
         this.handlerTxtNome = this.handlerTxtNome.bind(this);
@@ -52,20 +55,31 @@ class Editar extends React.Component<EditarProps, EditarState> {
             })
         });
     }
-    private eventoBtnEdt(event:any){
-        event.preventDefault(); //funciona
+    private eventoBtnEdt(event:any): void{
+        event.preventDefault();
+       
         let mensagens:string[] = [];
         const {id} = this.props.location.state;
         Verificacao.verificarNomeEditar(this.state.nome, mensagens, this.state.nomeOriginal)
         .then(msgs =>{
-            console.log(msgs);
-            if(msgs.length == 0) console.log("tudo certo");
-        });
+           
+           return Verificacao.verificarQtd(this.state.quantidade, msgs)})
+           .then(msgs =>{
+            return Verificacao.verificarPrcComp(this.state.precoCompra, msgs);
+           })
+           .then(msgs => {
+            return Verificacao.verificarPrcVend(this.state.precoVenda, msgs);
+           })
+        .then(msgs =>{
+            if(msgs.length > 0){
+                
+                this.setState({msgs: msgs});
+            }
+         })
         
        // Database.editarProduto( id ,new Produto(this.state.nome, parseInt(this.state.quantidade),parseFloat(this.state.precoCompra),parseFloat(this.state.precoVenda)));
     }
     private handlerTxtQtd(e:React.ChangeEvent<HTMLInputElement>){
-        console.log(e.target.value);
         this.setState({
             quantidade: e.target.value
         })
@@ -88,7 +102,7 @@ class Editar extends React.Component<EditarProps, EditarState> {
     render() { 
         
         return ( <section>
-            
+            <Mensagens listaDeMensagens={this.state.msgs}/>
             <h3 className="text-center">Digite os dados do produto</h3>
        <form className="formulario border form-group form-check">
            <label className="formulario__etiqueta form-check-label">Nome do produto:</label>
