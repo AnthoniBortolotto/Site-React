@@ -1,5 +1,5 @@
 import Produto from "./Produto";
-import {Store, set, get, keys} from "idb-keyval";
+import {Store, set, get, keys, del} from "idb-keyval";
 class Database
 {
     private static ObterDB(): Store{
@@ -19,7 +19,19 @@ class Database
         let key = this.keyDisponivel(); 
         key.then(res => set(res, produto, this.ObterDB()));
     }
-    
+    public static async obterProduto(id:number): Promise<Produto>
+    {
+        return await get(id, this.ObterDB());
+    }
+    public static deletarProduto(id:number): void{
+        let idAtual = id++;
+        this.obterProduto(idAtual);
+
+    }
+    //Edita o produto desejado inserindo a posição e produto novo.
+    public static editarProduto(id:number, produtoNovo:Produto):void{
+        set(id,produtoNovo, this.ObterDB());
+    }
     public static async dadosTabela(): Promise<unknown[]>
     {
         let produtos:Array<unknown> = [];

@@ -35,7 +35,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                            <td key={index}>{dado.qtd}</td>
                            <td key={index}>R$ {dado.prcComp}</td>
                            <td key={index}>R$ {dado.prcVend}</td>
-                           <td><Link to={{pathname: '/Editar', state: {id: index}}} className="tabela__icone-lapis"></Link><Link to={{pathname: '/Deletar', state: {id: index}}} className="tabela__icone-lixo"></Link></td>
+                           <td><Link to={{pathname: '/Editar', state: {id: index}}} className="tabela__icone-lapis"></Link><Link to={{pathname: '/Deletar', state: {id: index , produto: Database.obterProduto(index)}}} className="tabela__icone-lixo"></Link></td>
                        </tr>)
             })
         )

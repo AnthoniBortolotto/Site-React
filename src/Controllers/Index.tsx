@@ -5,7 +5,7 @@ import App from '../Views/App';
 import Rodape from '../Views/Footer/Rodape';
 import Cabecario from '../Views/Header/Cabecario';
 import "../utils/css/bootstrap.min.css";
-import "../utils/css/form-add.css";
+import "../utils/css/forms.css";
 import "../utils/css/index.css";
 import "../utils/css/menu.css";
 import "../utils/css/tabela.css";

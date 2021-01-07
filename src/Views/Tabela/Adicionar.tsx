@@ -31,7 +31,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             <section>
             
              <h3 className="text-center">Digite os dados do produto</h3>
-            <form className="formulario border form-group form-check">
+        <form className="formulario border form-group form-check">
             <label className="formulario__etiqueta form-check-label">Nome do produto:</label>
             <input type="text" id="txt-nome" className="formulario__txt"/>
             <label className="formulario__etiqueta form-check-label">Quantidade: </label>
