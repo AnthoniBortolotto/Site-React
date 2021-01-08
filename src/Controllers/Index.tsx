@@ -9,6 +9,7 @@ import "../utils/css/bootstrap.min.css";
 import "../utils/css/index.css";
 import "../utils/css/menu.css";
 import "../utils/css/tabela.css";
+import Sobre from '../Views/Sobre/Sobre';
 const Deletar = lazy(() => import('../Views/Tabela/Deletar'));
 const Editar = lazy(() => import('../Views/Tabela/Editar'));
 
@@ -16,14 +17,18 @@ const PaginaNaoEncontrada = lazy(() => import("../Views/NotFound/PaginaNaoEncont
 const Adicionar = lazy(() => import("../Views/Tabela/Adicionar"));
 ReactDOM.render(
   <Suspense fallback={<div></div>}>
-    <Cabecario />
+    
     <BrowserRouter>
+    <Cabecario />
       <Switch>
+      
         <Route path='/' exact={true} component={App} />
         <Route path='/Adicionar' component={Adicionar} />
         <Route path='/Editar' component={Editar} />
         <Route path='/Deletar' component={Deletar} />
+        <Route path='/Sobre' component={Sobre}/>
         <Route component={PaginaNaoEncontrada} />
+        
       </Switch>
     </BrowserRouter>
     <Rodape />
