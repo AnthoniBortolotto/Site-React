@@ -4,7 +4,7 @@ class Database {
     private static ObterDB(): Store {
         return new Store('Loja', 'Estoque');
     }
-    private static keyDisponivel() {
+    private static keyDisponivel(): Promise<number> {
         let key = 0;
         return keys(this.ObterDB()).then(res => {
             res.forEach(chave => {
@@ -41,10 +41,21 @@ class Database {
         }
         return false;
     }
-    public static deletarProduto(id: number): void {
-        let idAtual = id++;
-        this.obterProduto(idAtual);
-
+    public static async deletarProduto(id: number): Promise<void> {
+        let idAtual = id;
+        idAtual++;
+        let objeto = await get(idAtual, this.ObterDB());
+        while (objeto !== undefined) {
+            idAtual--;
+            del(idAtual, this.ObterDB()); //cuidado
+            set(idAtual, objeto, this.ObterDB());
+            idAtual++;
+            idAtual++;
+            objeto = await get(idAtual, this.ObterDB());
+        }
+        idAtual--;
+        del(idAtual,this.ObterDB());
+        return;
     }
     //Edita o produto desejado inserindo a posição e produto novo.
     public static editarProduto(id: number, produtoNovo: Produto): void {

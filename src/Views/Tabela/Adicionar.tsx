@@ -3,8 +3,6 @@ import { Component } from 'react';
 import $ from 'jquery';
 import "../../utils/css/form/forms.css";
 import "../../utils/css/form/mensagens.css";
-import Cabecario from "../Header/Cabecario";
-import Rodape from "../Footer/Rodape";
 import Database from "../../Models/Database";
 import Produto from '../../Models/Produto';
 import { Link, Redirect } from 'react-router-dom';

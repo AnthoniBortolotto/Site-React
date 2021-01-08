@@ -1,0 +1,13 @@
+.deletar{
+    text-align: center;
+    margin-top: 5rem;
+    background-color: lightsteelblue;
+    padding: 4rem;
+}
+.deletar__sim{
+    margin-top: 4rem;
+    margin-right: 9rem;
+}
+.deletar__nao{
+    margin-top: 4rem;
+}
