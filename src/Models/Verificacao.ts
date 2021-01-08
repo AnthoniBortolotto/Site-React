@@ -1,25 +1,23 @@
 import Database from "./Database";
 
 class Verificacao {
-    static verificarNome(nome: string, mensagens: Array<string>) {
+    static async verificarNome(nome: string, mensagens: Array<string>) {
         if (nome == "") {
-            mensagens.push("todos os campos devem estar preenchidos");
+            mensagens.push("O campo nome deve estar preenchido");
         }
         else if (/[^a-z|A-Z|ã|â|ê|õ|ç]/.test(nome)) {
             mensagens.push("Não é permitido em nome numeros ou caracteres especiais");
         }
         else //testar se funciona
         {
-            Database.procurarProduto(nome).then(res => {
+            return Database.procurarProduto(nome).then(res => {
                 if (res) {
                     mensagens.push("já existe um produto com esse nome");
-                    console.log("È true");
                 };
+                return mensagens
             })
-
-
         }
-        return mensagens;
+        return mensagens
     }
     public static async verificarNomeEditar(nome: string, mensagens: Array<string>, nomeOriginal: string): Promise<string[]> {
         if (nome == "") {

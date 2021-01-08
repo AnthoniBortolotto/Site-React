@@ -7,7 +7,9 @@ import "../../utils/css/form/forms.css";
 import "../../utils/css/form/mensagens.css";
 //import Mensagens from './auxiliares/mensagens';
 
-
+interface Ipush{
+    push(link:string):void
+}
 export interface IEditarState {
     id: number
 }
@@ -16,6 +18,7 @@ export interface IEditarLocation {
 }
 export interface EditarProps {
     location: IEditarLocation
+    history: Ipush
 }
 
 export interface EditarState {
@@ -36,13 +39,14 @@ class Editar extends React.Component<EditarProps, EditarState> {
             quantidade: '0',
             precoCompra: '0',
             precoVenda: '0',
-            msgs: []
+            msgs: [],
         }
         this.atualizaDados();
         this.handlerTxtNome = this.handlerTxtNome.bind(this);
         this.handlerTxtQtd = this.handlerTxtQtd.bind(this);
         this.handlerTxtPrecoComp = this.handlerTxtPrecoComp.bind(this);
         this.handlerTxtPrecoVend = this.handlerTxtPrecoVend.bind(this);
+        this.eventoBtnEdt = this.eventoBtnEdt.bind(this);
     }
     private atualizaDados() {
         const { id } = this.props.location.state;
@@ -56,9 +60,8 @@ class Editar extends React.Component<EditarProps, EditarState> {
             })
         });
     }
-    private eventoBtnEdt(event: any): void {
-        
-
+    private eventoBtnEdt(event:React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
+        event.preventDefault();
         let mensagens: string[] = [];
         const { id } = this.props.location.state;
         Verificacao.verificarNomeEditar(this.state.nome, mensagens, this.state.nomeOriginal)
@@ -74,11 +77,11 @@ class Editar extends React.Component<EditarProps, EditarState> {
             })
             .then(msgs => {
                 if (msgs.length > 0) {
-                    event.preventDefault();
                     this.setState({ msgs: msgs });
                 }
                 else{
-                    Database.editarProduto(id, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)))
+                    Database.editarProduto(id, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
+                    this.props.history.push('/');
                 }
             })
 
@@ -114,7 +117,7 @@ class Editar extends React.Component<EditarProps, EditarState> {
 
         return (<section>
 
-            <h3 className="text-center">Digite os dados do produto</h3>
+            <h3 className="text-center">Atualize os dados do produto</h3>
             <form className="formulario border form-group form-check">
                 <div className="mensagens">
                     <ul className="mensagens__lista">
@@ -129,7 +132,7 @@ class Editar extends React.Component<EditarProps, EditarState> {
                 <input type="text" value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} id="txt-prc-comp" className="formulario__txt" />
                 <label className="formulario__etiqueta form-check-label">Preço de Venda:</label>
                 <input type="text" id="txt-prc-vend" value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} className="formulario__txt" />
-                <Link onClick={this.eventoBtnEdt.bind(this)} to="/" type="button" id="btn-edit" className="btn btn-info formulario__btn__edit">Editar</Link>
+                <Link onClick={this.eventoBtnEdt} to="/" type="button" id="btn-edit" className="btn btn-info formulario__btn__edit">Editar</Link>
                 <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link>
             </form>
 

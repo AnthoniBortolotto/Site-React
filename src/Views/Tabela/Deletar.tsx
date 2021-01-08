@@ -22,23 +22,23 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
     {
         super(props);
     }
-    private deletar()
+    private deletar(): void
     {
         Database.deletarProduto(this.retornaId())
     }
-    private retornaId() {
+    private retornaId(): number {
         const {id} = this.props.location.state;
         return id;
     }
     // private mensagem(){
     //     return ()
     // }
-    render() { 
+    render(): JSX.Element { 
         
         const {produto} = this.props.location.state;
         console.log(this.retornaId());
         return (  <section>
-            <h3>Você tem certeza que deseja deletar {}</h3>
+            <h3>Você tem certeza que deseja deletar este produto?</h3>
             <Link onClick={this.deletar} to="/">Sim</Link>
             <Link to="/">Não</Link>
         </section>);

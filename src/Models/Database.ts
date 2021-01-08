@@ -17,15 +17,15 @@ class Database {
         let key = this.keyDisponivel();
         key.then(res => set(res, produto, this.ObterDB()));
     }
-    public static async obterProduto(id: number): Promise<Produto> {
-        return await get(id, this.ObterDB());
+    public static obterProduto(id: number): Promise<Produto> {
+        return get(id, this.ObterDB());
     }
 
     public static async procurarProduto(nome: string): Promise<boolean> {
         let key = 0;
         let objeto = await get(key, this.ObterDB()) as Produto;
         while (objeto !== undefined) {
-            if (objeto.nome == nome) return true
+            if (objeto.nome == nome) return true;
             key++;
             objeto = await get(key, this.ObterDB());
         }
