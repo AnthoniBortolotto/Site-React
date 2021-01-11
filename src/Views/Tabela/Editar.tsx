@@ -1,3 +1,4 @@
+import { TextField } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component, lazy } from 'react'
 import { Link } from 'react-router-dom';
@@ -125,14 +126,10 @@ class Editar extends React.Component<EditarProps, EditarState> {
                         {this.exibirMensagens()}
                     </ul>
                 </div>
-                <label className="formulario__etiqueta form-check-label">Nome do produto:</label>
-                <input type="text" value={this.state.nome} onChange={this.handlerTxtNome} id="txt-nome" className="formulario__txt" />
-                <label className="formulario__etiqueta form-check-label">Quantidade: </label>
-                <input type="text" value={this.state.quantidade} onChange={this.handlerTxtQtd} id="txt-qtd" className="formulario__txt" />
-                <label className="formulario__etiqueta form-check-label">Preço de Compra:</label>
-                <input type="text" value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} id="txt-prc-comp" className="formulario__txt" />
-                <label className="formulario__etiqueta form-check-label">Preço de Venda:</label>
-                <input type="text" id="txt-prc-vend" value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} className="formulario__txt" />
+                <TextField variant="outlined" label="Nome do produto" type="text" value={this.state.nome} onChange={this.handlerTxtNome} id="txt-nome" className="formulario__txt" />
+                <TextField variant="outlined" label="Quantidade" type="text" value={this.state.quantidade} onChange={this.handlerTxtQtd} id="txt-qtd" className="formulario__txt" />
+                <TextField variant="outlined" label="Preço de Compra" type="text" value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} id="txt-prc-comp" className="formulario__txt" />
+                <TextField variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} className="formulario__txt" />
                 <Link onClick={this.eventoBtnEdt} to="/" type="button" id="btn-edit" className="btn btn-info formulario__btn__edit">Editar</Link>
                 <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link>
             </form>
