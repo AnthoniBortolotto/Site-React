@@ -10,23 +10,23 @@ import Verificacao from '../../Models/Verificacao';
 import TextField from '@material-ui/core/TextField/TextField';
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 
-interface Ipush {
-    push(link: string): void
+interface Ipush{
+    push(link:string):void
 }
 export interface AdicionarProps {
     history: Ipush
 }
 
 export interface AdicionarState {
-    msgs: Array<string>
-    nome: string,
+    msgs:Array<string>
+    nome:string,
     quantidade: string,
     precoCompra: string,
     precoVenda: string,
 }
 
 class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
-    constructor(props: AdicionarProps) {
+    constructor(props:AdicionarProps){
         super(props);
         this.state = {
             msgs: [],
@@ -61,7 +61,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             nome: e.target.value
         })
     }
-    eventoBtnAdd(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
+    eventoBtnAdd(e:React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
         e.preventDefault();
         let mensagens: string[] = [];
         let nome = this.state.nome;
@@ -80,10 +80,10 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
                 return Verificacao.verificarPrcVend(prcVend, msgs);
             })
             .then(msgs => {
-                if (msgs.length > 0) {
+                if (msgs.length > 0) {                  
                     this.setState({ msgs: msgs });
                 }
-                else {
+                else{
                     Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
                     this.props.history.push('/');
                 }
@@ -96,45 +96,17 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             return (<li key={index} className="mensagens__lista__aviso">{mensagem}</li>)
         }))
     }
-
     render(): JSX.Element {
-        const useStyles = makeStyles((theme: Theme) =>
-            createStyles({
-                root: {
-                        margin: theme.spacing(1),
-                    },
-                    formulario: {
-                        marginTop: '2rem',
-                    },
-                    
-                    formulario__btn__add: {
-
-                    },
-                    
-                    formulario__btn__voltar: {
-                        marginTop: '1rem',
-                        marginLeft: '1rem',
-                        marginBottom: '3rem'
-                    }
-                    
-                    // .formulario__txt {
-                    //     margin: auto;
-                    //     margin-left: 35rem;
-                    // }
-                }),
-        );
-        const classes = useStyles();
-        //formulario border form-group form-check
         return (
             <section>
                 <Typography variant="h3" className="text-center">Digite os dados do produto</Typography>
-                <form className={classes.formulario}>
-                    <div className="mensagens">
-                        <ul className="mensagens__lista">
-                            {this.exibirMensagens()}
-                        </ul>
-                    </div>
-                    <TextField value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className={classes.root} />
+                <form className="formulario border form-group form-check">
+                <div className="mensagens">
+                    <ul className="mensagens__lista">
+                        {this.exibirMensagens()}
+                    </ul>
+                </div>
+                    <TextField value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className="formulario__txt" />
                     <TextField value={this.state.quantidade} onChange={this.handlerTxtQtd} variant="outlined" label="Quantidade" type="text" id="txt-qtd" className="formulario__txt" />
                     <TextField value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} variant="outlined" label="Preço de Compra" type="text" id="txt-prc-comp" className="formulario__txt" />
                     <TextField value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className="formulario__txt" />
