@@ -1,3 +1,4 @@
+import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component, lazy } from 'react'
 import { Link } from 'react-router-dom';
 import Database from '../../Models/Database';
@@ -117,7 +118,7 @@ class Editar extends React.Component<EditarProps, EditarState> {
 
         return (<section>
 
-            <h3 className="text-center">Atualize os dados do produto</h3>
+            <Typography variant="h3" className="text-center">Atualize os dados do produto</Typography>
             <form className="formulario border form-group form-check">
                 <div className="mensagens">
                     <ul className="mensagens__lista">

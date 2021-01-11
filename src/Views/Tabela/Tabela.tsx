@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Typography } from '@material-ui/core';
 export interface TabelaProps {
 
 }
@@ -34,13 +35,13 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
         return (
             this.state.produtos.map((dado: any, index) => {
                 return (
-                    <tr key={index}>
+                    <TableRow key={index}>
                         <TableCell key={index}>{dado.nome}</TableCell>
                         <TableCell key={index}>{dado.qtd}</TableCell>
                         <TableCell key={index}>R$ {dado.prcComp}</TableCell>
                         <TableCell key={index}>R$ {dado.prcVend}</TableCell>
                         <TableCell><Link to={{ pathname: '/Editar', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index } }} className="tabela__icone-lixo"></Link></TableCell>
-                    </tr>)
+                    </TableRow>)
             })
         )
     }
@@ -49,7 +50,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
         return (
             <TableContainer className="produtos">
 
-                <h3 className="text-center titulo">Bem vindo a lojinha</h3>
+                <Typography variant="h3" className="text-center titulo">Bem vindo a lojinha</Typography>
                 <Table className="table table-bordered tabela">
                     <TableHead>
                         <TableRow>

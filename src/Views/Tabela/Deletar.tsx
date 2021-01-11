@@ -1,3 +1,4 @@
+import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import Database from '../../Models/Database';
@@ -31,7 +32,7 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
     }
     render(): JSX.Element { 
         return (  <section className="deletar">
-            <h3>Você tem certeza que deseja deletar este produto?</h3>
+            <Typography variant="h3">Você tem certeza que deseja deletar este produto?</Typography>
             <Link onClick={this.deletar} to="/" className="btn btn-danger deletar__sim">Sim</Link>
             <Link to="/" className="btn btn-info deletar__nao">Não</Link>
         </section>);
