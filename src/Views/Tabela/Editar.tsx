@@ -126,7 +126,7 @@ class Editar extends React.Component<EditarProps, EditarState> {
                         {this.exibirMensagens()}
                     </ul>
                 </div>
-                <TextField variant="outlined" label="Nome do produto" type="text" value={this.state.nome} onChange={this.handlerTxtNome} id="txt-nome" className="formulario__txt" />
+                <TextField variant="outlined" label="Nome do Produto" type="text" value={this.state.nome} onChange={this.handlerTxtNome} id="txt-nome" className="formulario__txt" />
                 <TextField variant="outlined" label="Quantidade" type="text" value={this.state.quantidade} onChange={this.handlerTxtQtd} id="txt-qtd" className="formulario__txt" />
                 <TextField variant="outlined" label="Preço de Compra" type="text" value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} id="txt-prc-comp" className="formulario__txt" />
                 <TextField variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} className="formulario__txt" />

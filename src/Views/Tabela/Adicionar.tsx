@@ -7,31 +7,67 @@ import Database from "../../Models/Database";
 import Produto from '../../Models/Produto';
 import { Link, Redirect } from 'react-router-dom';
 import Verificacao from '../../Models/Verificacao';
+import TextField from '@material-ui/core/TextField/TextField';
+import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 
-interface Ipush{
-    push(link:string):void
+interface Ipush {
+    push(link: string): void
 }
 export interface AdicionarProps {
     history: Ipush
 }
 
 export interface AdicionarState {
-    msgs:Array<string>
+    msgs: Array<string>
+    nome: string,
+    quantidade: string,
+    precoCompra: string,
+    precoVenda: string,
 }
 
 class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
-    constructor(props:AdicionarProps){
+    constructor(props: AdicionarProps) {
         super(props);
-        this.state = {msgs: []}
+        this.state = {
+            msgs: [],
+            nome: '',
+            quantidade: '',
+            precoCompra: '',
+            precoVenda: ''
+        }
+        this.handlerTxtNome = this.handlerTxtNome.bind(this);
+        this.handlerTxtQtd = this.handlerTxtQtd.bind(this);
+        this.handlerTxtPrecoComp = this.handlerTxtPrecoComp.bind(this);
+        this.handlerTxtPrecoVend = this.handlerTxtPrecoVend.bind(this);
         this.eventoBtnAdd = this.eventoBtnAdd.bind(this);
     }
-    eventoBtnAdd(e:React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    private handlerTxtQtd(e: React.ChangeEvent<HTMLInputElement>): void {
+        this.setState({
+            quantidade: e.target.value
+        })
+    }
+    private handlerTxtPrecoComp(e: React.ChangeEvent<HTMLInputElement>): void {
+        this.setState({
+            precoCompra: e.target.value
+        })
+    }
+    private handlerTxtPrecoVend(e: React.ChangeEvent<HTMLInputElement>): void {
+        this.setState({
+            precoVenda: e.target.value
+        })
+    }
+    private handlerTxtNome(e: React.ChangeEvent<HTMLInputElement>): void {
+        this.setState({
+            nome: e.target.value
+        })
+    }
+    eventoBtnAdd(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
         e.preventDefault();
         let mensagens: string[] = [];
-        let nome = $("#txt-nome").val() as string;
-        let qtd = $("#txt-qtd").val() as string;
-        let prcComp = $("#txt-prc-comp").val() as string;
-        let prcVend = $("#txt-prc-vend").val() as string;
+        let nome = this.state.nome;
+        let qtd = this.state.quantidade;
+        let prcComp = this.state.precoCompra;
+        let prcVend = this.state.precoVenda;
 
         Verificacao.verificarNome(nome, mensagens)
             .then(msgs => {
@@ -45,10 +81,9 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             })
             .then(msgs => {
                 if (msgs.length > 0) {
-                    console.log(`nome: ${nome}, qtd: ${qtd}, prcC: ${prcComp}, prcV: ${prcVend}, mensagens: ${msgs.join()}`);                    
                     this.setState({ msgs: msgs });
                 }
-                else{
+                else {
                     Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
                     this.props.history.push('/');
                 }
@@ -61,24 +96,48 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             return (<li key={index} className="mensagens__lista__aviso">{mensagem}</li>)
         }))
     }
-    render() {
+
+    render(): JSX.Element {
+        const useStyles = makeStyles((theme: Theme) =>
+            createStyles({
+                root: {
+                        margin: theme.spacing(1),
+                    },
+                    formulario: {
+                        marginTop: '2rem',
+                    },
+                    
+                    formulario__btn__add: {
+
+                    },
+                    
+                    formulario__btn__voltar: {
+                        marginTop: '1rem',
+                        marginLeft: '1rem',
+                        marginBottom: '3rem'
+                    }
+                    
+                    // .formulario__txt {
+                    //     margin: auto;
+                    //     margin-left: 35rem;
+                    // }
+                }),
+        );
+        const classes = useStyles();
+        //formulario border form-group form-check
         return (
             <section>
-                <h3 className="text-center">Digite os dados do produto</h3>
-                <form className="formulario border form-group form-check">
-                <div className="mensagens">
-                    <ul className="mensagens__lista">
-                        {this.exibirMensagens()}
-                    </ul>
-                </div>
-                    <label className="formulario__etiqueta form-check-label">Nome do produto:</label>
-                    <input type="text" id="txt-nome" className="formulario__txt" />
-                    <label className="formulario__etiqueta form-check-label">Quantidade: </label>
-                    <input type="text" id="txt-qtd" className="formulario__txt" />
-                    <label className="formulario__etiqueta form-check-label">Preço de Compra:</label>
-                    <input type="text" id="txt-prc-comp" className="formulario__txt" />
-                    <label className="formulario__etiqueta form-check-label">Preço de Venda:</label>
-                    <input type="text" id="txt-prc-vend" className="formulario__txt" />
+                <Typography variant="h3" className="text-center">Digite os dados do produto</Typography>
+                <form className={classes.formulario}>
+                    <div className="mensagens">
+                        <ul className="mensagens__lista">
+                            {this.exibirMensagens()}
+                        </ul>
+                    </div>
+                    <TextField value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className={classes.root} />
+                    <TextField value={this.state.quantidade} onChange={this.handlerTxtQtd} variant="outlined" label="Quantidade" type="text" id="txt-qtd" className="formulario__txt" />
+                    <TextField value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} variant="outlined" label="Preço de Compra" type="text" id="txt-prc-comp" className="formulario__txt" />
+                    <TextField value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className="formulario__txt" />
                     <Link onClick={this.eventoBtnAdd} to="" type="button" id="btn-add" className="btn btn-info formulario__btn__add">Adicionar</Link>
                     <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link>
                 </form>

@@ -13,7 +13,8 @@ export interface TabelaProps {
 }
 
 export interface TabelaState {
-    produtos: unknown[]
+    produtos: unknown[],
+    
 }
 
 class Tabela extends React.Component<TabelaProps, TabelaState> {
