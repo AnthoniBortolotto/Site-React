@@ -1,7 +1,12 @@
 import React, { Component, lazy } from 'react'
 import { Link, Route } from 'react-router-dom';
 import Database from "../../Models/Database";
-import Produto from "../../Models/Produto";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 export interface TabelaProps {
 
 }
@@ -30,11 +35,11 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             this.state.produtos.map((dado: any, index) => {
                 return (
                     <tr key={index}>
-                        <td key={index}>{dado.nome}</td>
-                        <td key={index}>{dado.qtd}</td>
-                        <td key={index}>R$ {dado.prcComp}</td>
-                        <td key={index}>R$ {dado.prcVend}</td>
-                        <td><Link to={{ pathname: '/Editar', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index } }} className="tabela__icone-lixo"></Link></td>
+                        <TableCell key={index}>{dado.nome}</TableCell>
+                        <TableCell key={index}>{dado.qtd}</TableCell>
+                        <TableCell key={index}>R$ {dado.prcComp}</TableCell>
+                        <TableCell key={index}>R$ {dado.prcVend}</TableCell>
+                        <TableCell><Link to={{ pathname: '/Editar', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index } }} className="tabela__icone-lixo"></Link></TableCell>
                     </tr>)
             })
         )
@@ -42,27 +47,27 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
 
     render(): JSX.Element {
         return (
-            <section className="produtos">
+            <TableContainer className="produtos">
 
                 <h3 className="text-center titulo">Bem vindo a lojinha</h3>
-                <table className="table table-bordered tabela">
-                    <thead>
-                        <tr>
-                            <td>Nome do produto</td>
-                            <td>Quantidade</td>
-                            <td>Preço de compra</td>
-                            <td>Preço de venda</td>
-                            <td>Ações</td>
-                        </tr>
-                    </thead>
-                    <tbody id="corpo-tabela">
+                <Table className="table table-bordered tabela">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nome do produto</TableCell>
+                            <TableCell>Quantidade</TableCell>
+                            <TableCell>Preço de compra</TableCell>
+                            <TableCell>Preço de venda</TableCell>
+                            <TableCell>Ações</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody id="corpo-tabela">
                         {this.montarTabela()}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
 
                 <Link to="/Adicionar" type="button" id="btn-pag-add" className="btn btn-info botao-add">Adicionar Produto</Link>
 
-            </section>);
+            </TableContainer>);
     }
 }
 
