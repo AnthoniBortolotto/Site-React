@@ -14,8 +14,7 @@ class PaginaNaoEncontrada extends React.Component<Props, State> {
     render() { 
         return (  
             <>
-            <Cabecario />
-            <Rodape />
+             <h3>Você saiu do espaço tempo não há nada aqui</h3>
             </>
         );
     }

@@ -7,14 +7,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button/'
 export interface TabelaProps {
 
 }
 
 export interface TabelaState {
     produtos: unknown[],
-    
+
 }
 
 class Tabela extends React.Component<TabelaProps, TabelaState> {
@@ -49,27 +50,34 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
 
     render(): JSX.Element {
         return (
-            <TableContainer className="produtos">
+            <Grid container direction="column">
+                <TableContainer className="produtos">
 
-                <Typography variant="h3" className="text-center titulo">Bem vindo a lojinha</Typography>
-                <Table className="table table-bordered tabela">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nome do produto</TableCell>
-                            <TableCell>Quantidade</TableCell>
-                            <TableCell>Preço de compra</TableCell>
-                            <TableCell>Preço de venda</TableCell>
-                            <TableCell>Ações</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody id="corpo-tabela">
-                        {this.montarTabela()}
-                    </TableBody>
-                </Table>
-
-                <Link to="/Adicionar" type="button" id="btn-pag-add" className="btn btn-info botao-add">Adicionar Produto</Link>
-
-            </TableContainer>);
+                    <Grid item>
+                        <Typography variant="h3" className="text-center titulo">Bem vindo a lojinha</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Table className="table table-bordered tabela">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Nome do produto</TableCell>
+                                    <TableCell>Quantidade</TableCell>
+                                    <TableCell>Preço de compra</TableCell>
+                                    <TableCell>Preço de venda</TableCell>
+                                    <TableCell>Ações</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody id="corpo-tabela">
+                                {this.montarTabela()}
+                            </TableBody>
+                        </Table>
+                    </Grid>
+                    <Grid item>
+                        <Button variant="contained" color="secondary">Adicionar Produto</Button>
+                        {/* <Link to="/Adicionar" type="button" id="btn-pag-add" className="btn btn-info botao-add">Adicionar Produto</Link> */}
+                    </Grid>
+                </TableContainer>
+            </Grid>);
     }
 }
 
