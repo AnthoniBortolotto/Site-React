@@ -1,4 +1,4 @@
-import { AppBar, colors, createMuiTheme, Grid, makeStyles,} from '@material-ui/core';
+import { AppBar, Button, colors, createMuiTheme, Grid, makeStyles,} from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
@@ -31,8 +31,8 @@ class Cabecario extends React.Component<Props, State> {
                     <Grid item> <img alt="Logo" src={logo} /> </Grid>
                     <Grid item className="navbar-dark nav menu">
                         <ul className="lista__menu">
-                            <li className="lista__menu__item"><a href="http://localhost:8080/" className="btn btn-info lista__menu__item__ancora">Inicio</a></li>
-                            <li className="lista__menu__item"><Link to="/Sobre" type="button" className="btn btn-info lista__menu__item__ancora">Sobre-nos</Link></li>
+                            <li className="lista__menu__item"><Button variant="contained" color="secondary" href="http://localhost:8080/" className="btn btn-info lista__menu__item__ancora">Inicio</Button></li>
+                            <li className="lista__menu__item"><Button variant="contained" color="secondary" href="http://localhost:8080/Sobre" className="btn btn-info lista__menu__item__ancora">Sobre-nos</Button></li>
                         </ul>
                     </Grid>
                 </Grid>

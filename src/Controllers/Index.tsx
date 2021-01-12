@@ -9,6 +9,7 @@ import "../utils/css/index.css";
 import "../utils/css/menu.css";
 import "../utils/css/tabela.css";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
 const Sobre = lazy(() => import('../Views/Sobre/Sobre'));
 const App = lazy(() => import('../Views/App'));
 const Deletar = lazy(() => import('../Views/Tabela/Deletar'));
@@ -18,14 +19,14 @@ const PaginaNaoEncontrada = lazy(() => import("../Views/NotFound/PaginaNaoEncont
 const Adicionar = lazy(() => import("../Views/Tabela/Adicionar"));
 const Home = () => <h1>Home</h1>
 const About = () => <h1>About</h1>
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
         palette: {
           primary: {
-            main: '#2e7d32',
+            main: '#2e7d32'
           },
           secondary: {
-            main: '#f44336',
-          },
+            main: '#00838f'
+          }
         },
      });
 ReactDOM.render(

@@ -7,9 +7,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, makeStyles, Theme, Typography} from '@material-ui/core';
 import Button from '@material-ui/core/Button/'
-export interface TabelaProps {
+import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+export interface TabelaProps extends WithStyles<typeof styles> {
 
 }
 
@@ -18,6 +19,21 @@ export interface TabelaState {
 
 }
 
+// const styles = createStyles({
+//     root: {
+//       display: 'flex',
+//       flexDirection: 'column',
+//     },
+//   });
+  
+  // Estilos com dependência do tema
+
+const styles = () => createStyles({
+  btnStyles: {
+    marginTop: '3rem',
+    marginLeft: '17rem'
+  }
+});
 class Tabela extends React.Component<TabelaProps, TabelaState> {
     constructor(props: TabelaProps) {
         super(props);
@@ -47,8 +63,10 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             })
         )
     }
-
+   
     render(): JSX.Element {
+        
+        const { classes } = this.props;
         return (
             <Grid container direction="column">
                 <TableContainer className="produtos">
@@ -73,7 +91,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         </Table>
                     </Grid>
                     <Grid item>
-                        <Button variant="contained" color="secondary">Adicionar Produto</Button>
+                        <Button className={classes.btnStyles} href="http://localhost:8080/Adicionar" variant="contained" color="primary">Adicionar Produto</Button>
                         {/* <Link to="/Adicionar" type="button" id="btn-pag-add" className="btn btn-info botao-add">Adicionar Produto</Link> */}
                     </Grid>
                 </TableContainer>
@@ -81,4 +99,4 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
     }
 }
 
-export default Tabela;
+export default withStyles(styles)(Tabela);
