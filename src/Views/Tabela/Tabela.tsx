@@ -32,6 +32,14 @@ const styles = () => createStyles({
   btnStyles: {
     marginTop: '3rem',
     marginLeft: '17rem'
+  },
+  tableCellStyle: {
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '11pt',
+    textAlign: 'center'
+  },
+  tableCellAcoesStyle:{
+      
   }
 });
 class Tabela extends React.Component<TabelaProps, TabelaState> {
@@ -50,14 +58,15 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
         });
     }
     private montarTabela(): JSX.Element[] {
+        const { classes } = this.props;
         return (
             this.state.produtos.map((dado: any, index) => {
                 return (
                     <TableRow key={index}>
-                        <TableCell key={index}>{dado.nome}</TableCell>
-                        <TableCell key={index}>{dado.qtd}</TableCell>
-                        <TableCell key={index}>R$ {dado.prcComp}</TableCell>
-                        <TableCell key={index}>R$ {dado.prcVend}</TableCell>
+                        <TableCell className={classes.tableCellStyle} key={index}>{dado.nome}</TableCell>
+                        <TableCell className={classes.tableCellStyle} key={index}>{dado.qtd}</TableCell>
+                        <TableCell className={classes.tableCellStyle} key={index}>R$ {dado.prcComp}</TableCell>
+                        <TableCell className={classes.tableCellStyle} key={index}>R$ {dado.prcVend}</TableCell>
                         <TableCell><Link to={{ pathname: '/Editar', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index } }} className="tabela__icone-lixo"></Link></TableCell>
                     </TableRow>)
             })
@@ -78,11 +87,11 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         <Table className="table table-bordered tabela">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Nome do produto</TableCell>
-                                    <TableCell>Quantidade</TableCell>
-                                    <TableCell>Preço de compra</TableCell>
-                                    <TableCell>Preço de venda</TableCell>
-                                    <TableCell>Ações</TableCell>
+                                    <TableCell className={classes.tableCellStyle}>Nome do produto</TableCell>
+                                    <TableCell className={classes.tableCellStyle}>Quantidade</TableCell>
+                                    <TableCell className={classes.tableCellStyle}>Preço de compra</TableCell>
+                                    <TableCell className={classes.tableCellStyle}>Preço de venda</TableCell>
+                                    <TableCell className={classes.tableCellStyle}>Ações</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody id="corpo-tabela">
