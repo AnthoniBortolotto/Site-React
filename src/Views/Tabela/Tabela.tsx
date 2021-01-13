@@ -7,9 +7,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid, makeStyles, Theme, Typography} from '@material-ui/core';
+import { Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button/'
-import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+import { createMuiTheme, createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+import { theme } from '../../Controllers/Index';
 export interface TabelaProps extends WithStyles<typeof styles> {
 
 }
@@ -19,28 +20,34 @@ export interface TabelaState {
 
 }
 
-// const styles = createStyles({
-//     root: {
-//       display: 'flex',
-//       flexDirection: 'column',
-//     },
-//   });
-  
-  // Estilos com dependência do tema
+const styles = (theme:any) => createStyles({
+    btnStyles: {
+        marginTop: '3rem',
+        '&:hover': {
+            color: '#ffffff'
+        },
+        [theme.breakpoints.up('xs')]: {
+            marginLeft: '1rem',
+        },
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: '12rem',
+        },
+        [theme.breakpoints.up('md')]: {
+            marginLeft: '15rem',
+        },
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: '17rem',
+        },
+        [theme.breakpoints.up('xl')]: {
+            marginLeft: '19rem',
+        }
 
-const styles = () => createStyles({
-  btnStyles: {
-    marginTop: '3rem',
-    marginLeft: '17rem'
-  },
-  tableCellStyle: {
-    fontFamily: 'Arial, sans-serif',
-    fontSize: '11pt',
-    textAlign: 'center'
-  },
-  tableCellAcoesStyle:{
-      
-  }
+    },
+    tableCellStyle: {
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '11pt',
+        textAlign: 'center'
+    }
 });
 class Tabela extends React.Component<TabelaProps, TabelaState> {
     constructor(props: TabelaProps) {
@@ -72,9 +79,9 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             })
         )
     }
-   
+
     render(): JSX.Element {
-        
+
         const { classes } = this.props;
         return (
             <Grid container direction="column">
