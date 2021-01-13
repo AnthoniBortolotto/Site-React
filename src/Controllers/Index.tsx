@@ -20,15 +20,25 @@ const Adicionar = lazy(() => import("../Views/Tabela/Adicionar"));
 const Home = () => <h1>Home</h1>
 const About = () => <h1>About</h1>
 export const theme = createMuiTheme({
-        palette: {
-          primary: {
-            main: '#2e7d32'
-          },
-          secondary: {
-            main: '#00838f'
-          }
-        },
-     });
+  palette: {
+    primary: {
+      main: '#2e7d32'
+    },
+    secondary: {
+      main: '#00838f'
+    }
+  },
+});
+export const themeAdd = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#283593'
+    },
+    secondary: {
+      main: '#c62828'
+    }
+  },
+});
 ReactDOM.render(
   <Suspense fallback={<div></div>}>
     <ThemeProvider theme={theme} >
@@ -38,7 +48,9 @@ ReactDOM.render(
         <Switch>
 
           <Route path='/' exact={true} component={App} />
-          <Route path='/Adicionar' component={Adicionar} />
+          <ThemeProvider theme={themeAdd}>
+            <Route path='/Adicionar' component={Adicionar} />
+          </ThemeProvider>
           <Route path='/Editar' component={Editar} />
           <Route path='/Deletar' component={Deletar} />
           <Route path='/Sobre' component={Sobre} />
