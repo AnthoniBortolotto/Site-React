@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import $ from 'jquery';
 import "../../utils/css/form/forms.css";
 import "../../utils/css/form/mensagens.css";
 import Database from "../../Models/Database";
@@ -8,25 +7,29 @@ import Produto from '../../Models/Produto';
 import { Link, Redirect } from 'react-router-dom';
 import Verificacao from '../../Models/Verificacao';
 import TextField from '@material-ui/core/TextField/TextField';
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Theme, Typography, WithStyles, withStyles } from '@material-ui/core';
 
-interface Ipush{
-    push(link:string):void
+interface Ipush {
+    push(link: string): void
 }
-export interface AdicionarProps {
+export interface AdicionarProps extends WithStyles<typeof styles> {
     history: Ipush
 }
 
 export interface AdicionarState {
-    msgs:Array<string>
-    nome:string,
+    msgs: Array<string>
+    nome: string,
     quantidade: string,
     precoCompra: string,
     precoVenda: string,
 }
-
+const styles = (theme: any) => createStyles({
+    TxtStyle: {
+        margin: '1rem'
+    }
+})
 class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
-    constructor(props:AdicionarProps){
+    constructor(props: AdicionarProps) {
         super(props);
         this.state = {
             msgs: [],
@@ -61,7 +64,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             nome: e.target.value
         })
     }
-    eventoBtnAdd(e:React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
+    eventoBtnAdd(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
         e.preventDefault();
         let mensagens: string[] = [];
         let nome = this.state.nome;
@@ -80,10 +83,10 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
                 return Verificacao.verificarPrcVend(prcVend, msgs);
             })
             .then(msgs => {
-                if (msgs.length > 0) {                  
+                if (msgs.length > 0) {
                     this.setState({ msgs: msgs });
                 }
-                else{
+                else {
                     Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
                     this.props.history.push('/');
                 }
@@ -97,21 +100,24 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         }))
     }
     render(): JSX.Element {
+        const { classes } = this.props;
         return (
             <section>
                 <Typography variant="h3" className="text-center">Digite os dados do produto</Typography>
                 <form className="formulario border form-group form-check">
-                <div className="mensagens">
-                    <ul className="mensagens__lista">
-                        {this.exibirMensagens()}
-                    </ul>
-                </div>
-                    <TextField value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className="formulario__txt" />
-                    <TextField value={this.state.quantidade} onChange={this.handlerTxtQtd} variant="outlined" label="Quantidade" type="text" id="txt-qtd" className="formulario__txt" />
-                    <TextField value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} variant="outlined" label="Preço de Compra" type="text" id="txt-prc-comp" className="formulario__txt" />
-                    <TextField value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className="formulario__txt" />
-                    <Link onClick={this.eventoBtnAdd} to="" type="button" id="btn-add" className="btn btn-info formulario__btn__add">Adicionar</Link>
-                    <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link>
+                    <div className="mensagens">
+                        <ul className="mensagens__lista">
+                            {this.exibirMensagens()}
+                        </ul>
+                    </div>
+                    <Grid container direction="column" alignItems="center">
+                        <TextField value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className={classes.TxtStyle} />
+                        <TextField value={this.state.quantidade} onChange={this.handlerTxtQtd} variant="outlined" label="Quantidade" type="text" id="txt-qtd" className={classes.TxtStyle} />
+                        <TextField value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} variant="outlined" label="Preço de Compra" type="text" id="txt-prc-comp" className={classes.TxtStyle} />
+                        <TextField value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className={classes.TxtStyle} />
+                        <Grid alignContent="center" item><Link onClick={this.eventoBtnAdd} to="" type="button" id="btn-add" className="btn btn-info formulario__btn__add">Adicionar</Link>
+                        <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link></Grid>
+                    </Grid>
                 </form>
 
             </section>
@@ -120,4 +126,4 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
     }
 }
 
-export default Adicionar;
+export default withStyles(styles)(Adicionar);
