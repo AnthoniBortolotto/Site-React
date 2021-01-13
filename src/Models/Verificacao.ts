@@ -1,68 +1,68 @@
 import Database from "./Database";
 
 class Verificacao {
-    static async verificarNome(nome: string, mensagens: Array<string>) {
+    static async verificarNome(nome: string): Promise<"" | "já existe um produto com esse nome" | "O campo nome deve estar preenchido" | "Não é permitido em nome numeros ou caracteres especiais"> {
         if (nome == "") {
-            mensagens.push("O campo nome deve estar preenchido");
+            return "O campo nome deve estar preenchido";
         }
         else if (/[^a-z|A-Z|ã|â|ê|õ|ç]/.test(nome)) {
-            mensagens.push("Não é permitido em nome numeros ou caracteres especiais");
+            return "Não é permitido em nome numeros ou caracteres especiais";
         }
         else //testar se funciona
         {
             return Database.procurarProduto(nome).then(res => {
                 if (res) {
-                    mensagens.push("já existe um produto com esse nome");
+                    return "já existe um produto com esse nome";
                 };
-                return mensagens
+                return '';
             })
         }
-        return mensagens
+        return '';
     }
-    public static async verificarNomeEditar(nome: string, mensagens: Array<string>, nomeOriginal: string): Promise<string[]> {
+    public static async verificarNomeEditar(nome: string, nomeOriginal: string): Promise<"" | "já existe um produto com esse nome" | "O campo nome deve estar preenchido" | "Não é permitido em nome numeros ou caracteres especiais"> {
         if (nome == "") {
-            mensagens.push("O campo nome deve estar preenchido");
+            return "O campo nome deve estar preenchido";
         }
         else if (/[^a-z|A-Z|ã|â|ê|õ|ç]/.test(nome)) {
-            mensagens.push("Não é permitido em nome numeros ou caracteres especiais");
+            return "Não é permitido em nome numeros ou caracteres especiais";
         }
         else //testar se funciona
         {
             return Database.procurarProdutoEditar(nome, nomeOriginal).then(res => {
                 if (res) {
-                    mensagens.push("já existe um produto com esse nome");
+                    return "já existe um produto com esse nome";
                 };
-                return mensagens
+                return ''
             })
         }
-        return mensagens
+        return '';
     }
-    static verificarQtd(qtd: string, mensagens: Array<string>): string[] {
+    static verificarQtd(qtd: string): "" | "O campo quantidade deve estar preenchido" | "Apenas numeros são permitidos no campo quantidade" {
         if (qtd == "") {
-            mensagens.push("O campo quantidade deve estar preenchido");
+            return "O campo quantidade deve estar preenchido";
         }
-        else if (/[^\d]/.test(qtd)) {
-            mensagens.push("Apenas numeros são permitidos no campo quantidade");
+        else if (! /^[\d]+$/.test(qtd)) {
+            return "Apenas numeros são permitidos no campo quantidade";
         }
-        return mensagens;
+        return '';
     }
-    static verificarPrcComp(prc: string, mensagens: Array<string>): string[] {
+    static verificarPrcComp(prc:string): "" | "O campo Preço de compra deve estar preenchido" | "Você precisa digitar um preço de compra válido" {
         if (prc == "") {
-            mensagens.push("O campo Preço de compra deve estar preenchido");
+            return "O campo Preço de compra deve estar preenchido";
         }
         else if (!/^\d+(.\d\d)?$/.test(prc)) {
-            mensagens.push("Você precisa digitar um preço de compra válido");
+            return "Você precisa digitar um preço de compra válido";
         }
-        return mensagens;
+        return '';
     }
-    static verificarPrcVend(prc: string, mensagens: Array<string>): string[] {
+    static verificarPrcVend(prc: string): "" | "O campo Preço de venda deve estar preenchido" | "Você precisa digitar um preço de venda válido" {
         if (prc == "") {
-            mensagens.push("O campo Preço de venda deve estar preenchido");
+            return "O campo Preço de venda deve estar preenchido";
         }
         else if (!/^\d+(.\d\d)?$/.test(prc)) {
-            mensagens.push("Você precisa digitar um preço de venda válido");
+            return "Você precisa digitar um preço de venda válido";
         }
-        return mensagens;
+        return '';
     }
 }
 export default Verificacao;

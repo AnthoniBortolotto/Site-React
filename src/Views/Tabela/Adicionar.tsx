@@ -17,11 +17,18 @@ export interface AdicionarProps extends WithStyles<typeof styles> {
 }
 
 export interface AdicionarState {
-    msgs: Array<string>
     nome: string,
     quantidade: string,
     precoCompra: string,
     precoVenda: string,
+    msgNome: string,
+    msgQtd: string,
+    msgPrcC: string,
+    msgPrcV: string,
+    erroNome: boolean,
+    erroQtd: boolean,
+    erroPrcC: boolean,
+    erroPrcV: boolean,
 }
 const styles = (theme: any) => createStyles({
     TxtStyle: {
@@ -32,11 +39,18 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
     constructor(props: AdicionarProps) {
         super(props);
         this.state = {
-            msgs: [],
             nome: '',
             quantidade: '',
             precoCompra: '',
-            precoVenda: ''
+            precoVenda: '',
+            msgNome: '',
+            msgQtd: '',
+            msgPrcC: '',
+            msgPrcV: '',
+            erroNome: false,
+            erroQtd: false,
+            erroPrcC: false,
+            erroPrcV: false,
         }
         this.handlerTxtNome = this.handlerTxtNome.bind(this);
         this.handlerTxtQtd = this.handlerTxtQtd.bind(this);
@@ -48,43 +62,85 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         this.setState({
             quantidade: e.target.value
         })
+        let msg = Verificacao.verificarQtd(e.target.value)
+        if( msg != "")
+        {
+            this.setState({erroQtd: true, msgQtd:msg})
+        }
+        else{
+            this.setState({erroQtd: false, msgQtd:msg})
+        }
     }
     private handlerTxtPrecoComp(e: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             precoCompra: e.target.value
         })
+        let msg = Verificacao.verificarPrcComp(e.target.value)
+        if( msg != "")
+        {
+            this.setState({erroPrcC: true, msgPrcC:msg})
+        }
+        else{
+            this.setState({erroPrcC: false, msgPrcC:msg})
+        }
     }
     private handlerTxtPrecoVend(e: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             precoVenda: e.target.value
         })
+        let msg = Verificacao.verificarPrcVend(e.target.value);
+        if( msg != "")
+        {
+            this.setState({erroPrcV: true, msgPrcV:msg});
+        }
+        else{
+            this.setState({erroPrcV: false, msgPrcV:msg});
+        }
     }
     private handlerTxtNome(e: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             nome: e.target.value
         })
+        Verificacao.verificarNome(e.target.value)
+        .then(msg =>{
+            if(msg != "")
+            {
+                this.setState({erroNome: true, msgNome: msg})
+            }
+            else{
+                this.setState({erroNome: false, msgNome: msg})
+            }
+        });
     }
     eventoBtnAdd(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
         e.preventDefault();
-        let mensagens: string[] = [];
         let nome = this.state.nome;
         let qtd = this.state.quantidade;
         let prcComp = this.state.precoCompra;
         let prcVend = this.state.precoVenda;
 
-        Verificacao.verificarNome(nome, mensagens)
-            .then(msgs => {
-                return Verificacao.verificarQtd(qtd, msgs)
+        Verificacao.verificarNome(nome)
+            .then(msg => {
+                if (msg.length > 1) {
+                    return undefined;
+                }
+                return Verificacao.verificarQtd(qtd)
             })
-            .then(msgs => {
-                return Verificacao.verificarPrcComp(prcComp, msgs);
+            .then(msg => {
+                if (msg === undefined || msg.length > 1) {
+                    return undefined;
+                }
+                return Verificacao.verificarPrcComp(prcComp);
             })
-            .then(msgs => {
-                return Verificacao.verificarPrcVend(prcVend, msgs);
+            .then(msg => {
+                if (msg === undefined || msg.length > 1) {
+                    return undefined;
+                }
+                return Verificacao.verificarPrcVend(prcVend);
             })
-            .then(msgs => {
-                if (msgs.length > 0) {
-                    this.setState({ msgs: msgs });
+            .then(msg => {
+                if (msg === undefined || msg.length > 1) {
+                    return;
                 }
                 else {
                     Database.adicionarProduto(new Produto(nome, parseInt(qtd), parseFloat(prcComp), parseFloat(prcVend)));
@@ -93,30 +149,21 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
             })
 
     }
-    private exibirMensagens(): JSX.Element[] {
-        // console.log(`Em exibir mensagem: ${this.props.listaDeMensagens.join()}`)
-        return (this.state.msgs.map((mensagem: string, index: number) => {
-            return (<li key={index} className="mensagens__lista__aviso">{mensagem}</li>)
-        }))
-    }
     render(): JSX.Element {
         const { classes } = this.props;
         return (
             <section>
                 <Typography variant="h3" className="text-center">Digite os dados do produto</Typography>
                 <form className="formulario border form-group form-check">
-                    <div className="mensagens">
-                        <ul className="mensagens__lista">
-                            {this.exibirMensagens()}
-                        </ul>
-                    </div>
                     <Grid container direction="column" alignItems="center">
-                        <TextField value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className={classes.TxtStyle} />
-                        <TextField value={this.state.quantidade} onChange={this.handlerTxtQtd} variant="outlined" label="Quantidade" type="text" id="txt-qtd" className={classes.TxtStyle} />
-                        <TextField value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} variant="outlined" label="Preço de Compra" type="text" id="txt-prc-comp" className={classes.TxtStyle} />
-                        <TextField value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className={classes.TxtStyle} />
-                        <Grid alignContent="center" item><Link onClick={this.eventoBtnAdd} to="" type="button" id="btn-add" className="btn btn-info formulario__btn__add">Adicionar</Link>
-                        <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link></Grid>
+                        <TextField error={this.state.erroNome} helperText={this.state.msgNome} value={this.state.nome} onChange={this.handlerTxtNome} variant="outlined" label="Nome do Produto" type="text" id="txt-nome" className={classes.TxtStyle} />
+                        <TextField error={this.state.erroQtd} helperText={this.state.msgQtd} value={this.state.quantidade} onChange={this.handlerTxtQtd} variant="outlined" label="Quantidade" type="text" id="txt-qtd" className={classes.TxtStyle} />
+                        <TextField error={this.state.erroPrcC} helperText={this.state.msgPrcC} value={this.state.precoCompra} onChange={this.handlerTxtPrecoComp} variant="outlined" label="Preço de Compra" type="text" id="txt-prc-comp" className={classes.TxtStyle} />
+                        <TextField error={this.state.erroPrcV} helperText={this.state.msgPrcV} value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className={classes.TxtStyle} />
+                        <Grid item>
+                            <Link onClick={this.eventoBtnAdd} to="" type="button" id="btn-add" className="btn btn-info formulario__btn__add">Adicionar</Link>
+                            <Link to="/" type="button" id="btn-voltar" className="btn btn-danger formulario__btn__voltar">Voltar</Link>
+                        </Grid>
                     </Grid>
                 </form>
 
