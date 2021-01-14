@@ -13,10 +13,9 @@ import { green, red } from '@material-ui/core/colors';
 const Sobre = lazy(() => import('../Views/Sobre/Sobre'));
 const App = lazy(() => import('../Views/App'));
 const Deletar = lazy(() => import('../Views/Tabela/Deletar'));
-const Editar = lazy(() => import('../Views/Tabela/Editar'));
 
 const PaginaNaoEncontrada = lazy(() => import("../Views/NotFound/PaginaNaoEncontrada"));
-const Adicionar = lazy(() => import("../Views/Tabela/Adicionar"));
+const AddEdit = lazy(() => import("../Views/Tabela/AddEdit"));
 const Home = () => <h1>Home</h1>
 const About = () => <h1>About</h1>
 export const theme = createMuiTheme({
@@ -49,9 +48,8 @@ ReactDOM.render(
 
           <Route path='/' exact={true} component={App} />
           <ThemeProvider theme={themeAdd}>
-            <Route path='/Adicionar' component={Adicionar} />
+            <Route path='/AddEdit' component={AddEdit} />
           </ThemeProvider>
-          <Route path='/Editar' component={Editar} />
           <Route path='/Deletar' component={Deletar} />
           <Route path='/Sobre' component={Sobre} />
 

@@ -11,6 +11,9 @@ import { Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button/'
 import { createMuiTheme, createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
 import { theme } from '../../Controllers/Index';
+
+
+
 export interface TabelaProps extends WithStyles<typeof styles> {
 
 }
@@ -74,7 +77,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         <TableCell className={classes.tableCellStyle} key={index}>{dado.qtd}</TableCell>
                         <TableCell className={classes.tableCellStyle} key={index}>R$ {dado.prcComp}</TableCell>
                         <TableCell className={classes.tableCellStyle} key={index}>R$ {dado.prcVend}</TableCell>
-                        <TableCell><Link to={{ pathname: '/Editar', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index } }} className="tabela__icone-lixo"></Link></TableCell>
+                        <TableCell><Link to={{ pathname: '/AddEdit', state: { id: index } }} className="tabela__icone-lapis"></Link><Link to={{ pathname: '/Deletar', state: { id: index } }} className="tabela__icone-lixo"></Link></TableCell>
                     </TableRow>)
             })
         )
@@ -107,8 +110,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         </Table>
                     </Grid>
                     <Grid item>
-                        <Button className={classes.btnStyles} href="http://localhost:8080/Adicionar" variant="contained" color="primary">Adicionar Produto</Button>
-                        {/* <Link to="/Adicionar" type="button" id="btn-pag-add" className="btn btn-info botao-add">Adicionar Produto</Link> */}
+                        <Button className={classes.btnStyles} href="http://localhost:8080/AddEdit" variant="contained" color="primary">Adicionar Produto</Button>
                     </Grid>
                 </TableContainer>
             </Grid>);

@@ -9,15 +9,24 @@ import Verificacao from '../../Models/Verificacao';
 import TextField from '@material-ui/core/TextField/TextField';
 import { Button, createStyles, Grid, makeStyles, Theme, Typography, WithStyles, withStyles } from '@material-ui/core';
 
+
+export interface IEditarState {
+    id: number | undefined
+}
+export interface IAdicionarLocation {
+    state: IEditarState
+}
 interface Ipush {
     push(link: string): void
 }
-export interface AdicionarProps extends WithStyles<typeof styles> {
+export interface AddEditProps extends WithStyles<typeof styles> {
     history: Ipush
+    location: IAdicionarLocation
 }
 
-export interface AdicionarState {
+export interface AddEditState {
     nome: string,
+    nomeOriginal: string | undefined
     quantidade: string,
     precoCompra: string,
     precoVenda: string,
@@ -29,6 +38,7 @@ export interface AdicionarState {
     erroQtd: boolean,
     erroPrcC: boolean,
     erroPrcV: boolean,
+    txtBtn: string
 }
 const styles = (theme: any) => createStyles({
     txtStyle: {
@@ -40,27 +50,70 @@ const styles = (theme: any) => createStyles({
         marginBottom: '3rem'
     }
 })
-class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
-    constructor(props: AdicionarProps) {
+class AddEdit extends React.Component<AddEditProps, AddEditState> {
+    constructor(props: AddEditProps) {
         super(props);
-        this.state = {
-            nome: '',
-            quantidade: '',
-            precoCompra: '',
-            precoVenda: '',
-            msgNome: '',
-            msgQtd: '',
-            msgPrcC: '',
-            msgPrcV: '',
-            erroNome: false,
-            erroQtd: false,
-            erroPrcC: false,
-            erroPrcV: false,
+        try {
+            const { id } = this.props.location.state;
+            this.state = {
+                nome: '',
+                nomeOriginal: undefined,
+                quantidade: '',
+                precoCompra: '',
+                precoVenda: '',
+                msgNome: '',
+                msgQtd: '',
+                msgPrcC: '',
+                msgPrcV: '',
+                erroNome: false,
+                erroQtd: false,
+                erroPrcC: false,
+                erroPrcV: false,
+                txtBtn: "Editar"
+            }
+            this.atualizarDados(id as number)
+        } catch (error) {
+            this.state = {
+                nome: '',
+                nomeOriginal: undefined,
+                quantidade: '',
+                precoCompra: '',
+                precoVenda: '',
+                msgNome: '',
+                msgQtd: '',
+                msgPrcC: '',
+                msgPrcV: '',
+                erroNome: false,
+                erroQtd: false,
+                erroPrcC: false,
+                erroPrcV: false,
+                txtBtn: "Adicionar"
+            }
         }
         this.handlerTxtNome = this.handlerTxtNome.bind(this);
         this.handlerTxtQtd = this.handlerTxtQtd.bind(this);
         this.handlerTxtPrecoComp = this.handlerTxtPrecoComp.bind(this);
         this.handlerTxtPrecoVend = this.handlerTxtPrecoVend.bind(this);
+    }
+    private atualizarDados(id: number) {
+        Database.obterProduto(id)
+            .then(res => {
+                this.setState({
+                    nome: res.nome,
+                    nomeOriginal: res.nome,
+                    quantidade: res.qtd.toString(),
+                    precoCompra: res.prcComp.toString(),
+                    precoVenda: res.prcVend.toString(),
+                    msgNome: '',
+                    msgQtd: '',
+                    msgPrcC: '',
+                    msgPrcV: '',
+                    erroNome: false,
+                    erroQtd: false,
+                    erroPrcC: false,
+                    erroPrcV: false,
+                })
+            })
     }
     private handlerTxtQtd(e: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
@@ -78,7 +131,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         this.setState({
             precoCompra: e.target.value
         })
-        let msg = Verificacao.verificarPrcComp(e.target.value)
+        let msg = Verificacao.verificarPreco(e.target.value)
         if (msg != "") {
             this.setState({ erroPrcC: true, msgPrcC: msg })
         }
@@ -90,7 +143,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         this.setState({
             precoVenda: e.target.value
         })
-        let msg = Verificacao.verificarPrcVend(e.target.value);
+        let msg = Verificacao.verificarPreco(e.target.value);
         if (msg != "") {
             this.setState({ erroPrcV: true, msgPrcV: msg });
         }
@@ -102,7 +155,7 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
         this.setState({
             nome: e.target.value
         })
-        Verificacao.verificarNome(e.target.value)
+        Verificacao.verificarNome(e.target.value, this.state.nomeOriginal)
             .then(msg => {
                 if (msg != "") {
                     this.setState({ erroNome: true, msgNome: msg })
@@ -129,14 +182,19 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
                                 let qtd = this.state.erroQtd;
                                 let prcComp = this.state.erroPrcC;
                                 let prcVend = this.state.erroPrcV;
-                                if (nome || qtd || prcComp || prcVend || this.state.nome === '' || this.state.quantidade === '' || this.state.precoCompra === '' || this.state.precoVenda === '' ) {
+                                if (nome || qtd || prcComp || prcVend || this.state.nome === '' || this.state.quantidade === '' || this.state.precoCompra === '' || this.state.precoVenda === '') {
                                     return;
                                 }
-                                else {
+                                else if (this.state.nomeOriginal === undefined) {
                                     Database.adicionarProduto(new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
                                     this.props.history.push('/');
                                 }
-                            }} >Adicionar</Button>
+                                else {
+                                    const { id } = this.props.location.state;
+                                    Database.editarProduto(id as number, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
+                                    this.props.history.push('/');
+                                }
+                            }} >{this.state.txtBtn}</Button>
                             <Button className={classes.btnStyle} onClick={() => {
                                 this.props.history.push('/');
                             }} variant="contained" color="secondary">Voltar</Button>
@@ -150,4 +208,4 @@ class Adicionar extends React.Component<AdicionarProps, AdicionarState> {
     }
 }
 
-export default withStyles(styles)(Adicionar);
+export default withStyles(styles)(AddEdit);
