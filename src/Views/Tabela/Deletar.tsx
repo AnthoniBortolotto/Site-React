@@ -1,4 +1,4 @@
-import { createStyles, Grid, withStyles, WithStyles } from '@material-ui/core';
+import { Button, createStyles, Grid, withStyles, WithStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
@@ -7,19 +7,32 @@ import "../../utils/css/deletar.css";
 
 export interface IDeletarState{
     produto:Promise<unknown>
-    id:number
+    id:number | undefined
 }
-export interface IEditarLocation{
+interface Ipush {
+    push(link: string): void
+}
+export interface IDeletarLocation{
     state:IDeletarState
 }
 export interface DeletarProps extends WithStyles<typeof styles> {
-    location:IEditarLocation
+    location:IDeletarLocation
+    history: Ipush
 }
  
 export interface DeletarState {
     
 }
-const styles = (theme:any) => createStyles({})
+const styles = (theme:any) => createStyles({
+    deletarTituloStyle: {
+        marginTop: '4rem',
+        marginBottom: '3rem',
+        textAlign: 'center'
+    },
+    btnDeletarStyle: {
+        marginRight: '2rem'
+    }
+})
 class Deletar extends React.Component<DeletarProps, DeletarState> {
     
     constructor(props:DeletarProps)
@@ -29,16 +42,25 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
     }
     private deletar(): void
     {
-        const {id} = this.props.location.state;
-       Database.deletarProduto(id);
+        
     }
     render(): JSX.Element { 
+        const {id} = this.props.location.state;
         const { classes } = this.props;
-        return (  <Grid container alignItems="center" direction="column">
-            <Grid item><Typography variant="h3">Você tem certeza que deseja deletar este produto?</Typography></Grid>
-            <Grid item><Link onClick={this.deletar} to="/" className="btn btn-danger deletar__sim">Sim</Link>
-            <Link to="/" className="btn btn-info deletar__nao">Não</Link></Grid>
+        if(id !== undefined) return ( <Grid container alignItems="center" direction="column">
+            {console.log(id)}
+            <Grid item><Typography variant="h3" className={classes.deletarTituloStyle}>Você tem certeza que deseja deletar este produto?</Typography></Grid>
+            <Grid item><Button className={classes.btnDeletarStyle} variant="contained" color="secondary" onClick={() => {
+                Database.deletarProduto(id);
+                this.props.history.push('/');
+            }}>Sim</Button>
+            <Button variant="contained" color="primary" onClick={() => {
+                this.props.history.push('/');
+            }}>Não</Button></Grid>
         </Grid>);
+        else{
+            return(<>{this.props.history.push('/')}</>)
+        }
     }
 }
  
