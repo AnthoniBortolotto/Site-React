@@ -9,15 +9,12 @@ import "../utils/css/index.css";
 import "../utils/css/menu.css";
 import "../utils/css/tabela.css";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { green, red } from '@material-ui/core/colors';
-const Sobre = lazy(() => import('../Views/Sobre/Sobre'));
 const App = lazy(() => import('../Views/App'));
 const Deletar = lazy(() => import('../Views/Tabela/Deletar'));
 
 const PaginaNaoEncontrada = lazy(() => import("../Views/NotFound/PaginaNaoEncontrada"));
 const AddEdit = lazy(() => import("../Views/Tabela/AddEdit"));
-const Home = () => <h1>Home</h1>
-const About = () => <h1>About</h1>
+const Sobre = lazy(() => import("../Views/Sobre/Sobre"));
 export const theme = createMuiTheme({
   palette: {
     primary: {
@@ -47,11 +44,13 @@ ReactDOM.render(
         <Switch>
 
           <Route path='/' exact={true} component={App} />
+          <Route path='/Sobre' component={Sobre}/>
           <ThemeProvider theme={themeAdd}>
             <Route path='/AddEdit' component={AddEdit} />
+            <Route path='/Deletar' component={Deletar} />
+            {/* <Route component={PaginaNaoEncontrada} /> */}
           </ThemeProvider>
-          <Route path='/Deletar' component={Deletar} />
-          <Route path='/Sobre' component={Sobre} />
+
 
         </Switch>
       </BrowserRouter>

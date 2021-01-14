@@ -19,20 +19,14 @@ import logo from "../../utils/img/logo.jpg";
 class Cabecario extends React.Component<Props, State> {
     
     render() {
-        // const useStyles = makeStyles(({
-        //     AppBarStyle:{
-        //       backgroundColor: "#2e7d32"
-        //    }  
-        //   }));
-        //const classes = useStyles();
         return (
             <AppBar color="primary" variant="outlined" position="static">
                 <Grid container direction="row" justify="space-between">
                     <Grid item> <img alt="Logo" src={logo} /> </Grid>
                     <Grid item className="navbar-dark nav menu">
                         <ul className="lista__menu">
-                            <li className="lista__menu__item"><Button variant="contained" color="secondary" href="http://localhost:8080/" className="btn btn-info lista__menu__item__ancora">Inicio</Button></li>
-                            <li className="lista__menu__item"><Button variant="contained" color="secondary" href="http://localhost:8080/Sobre" className="btn btn-info lista__menu__item__ancora">Sobre-nos</Button></li>
+                            <li className="lista__menu__item"><Button variant="contained" color="secondary" href="http://localhost:8080/">Inicio</Button></li>
+                            <li className="lista__menu__item"><Button variant="contained" color="secondary" href="http://localhost:8080/Sobre">Sobre-nos</Button></li>
                         </ul>
                     </Grid>
                 </Grid>

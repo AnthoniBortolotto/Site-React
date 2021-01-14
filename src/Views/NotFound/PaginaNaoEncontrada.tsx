@@ -1,23 +1,26 @@
+import { createStyles, Typography, WithStyles, withStyles } from '@material-ui/core';
 import React, { Component } from 'react'
 import Rodape from '../Footer/Rodape';
 import Cabecario from '../Header/Cabecario';
 
-export interface Props {
+export interface Props extends WithStyles<typeof styles> {
     
 }
  
 export interface State {
     
 }
- 
+const styles = (theme:any) => createStyles({})
 class PaginaNaoEncontrada extends React.Component<Props, State> {
+    constructor(props:Props){
+        super(props);
+    }
     render() { 
+        const { classes } = this.props;
         return (  
-            <>
-             <h3>Você saiu do espaço tempo não há nada aqui</h3>
-            </>
+             <Typography variant="h3">Você saiu do espaço tempo não há nada aqui</Typography>
         );
     }
 }
  
-export default PaginaNaoEncontrada;
+export default withStyles(styles)(PaginaNaoEncontrada);

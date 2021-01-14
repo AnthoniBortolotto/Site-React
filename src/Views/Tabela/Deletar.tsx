@@ -1,3 +1,4 @@
+import { createStyles, Grid, withStyles, WithStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
@@ -11,15 +12,16 @@ export interface IDeletarState{
 export interface IEditarLocation{
     state:IDeletarState
 }
-export interface DeletarProps {
+export interface DeletarProps extends WithStyles<typeof styles> {
     location:IEditarLocation
 }
  
 export interface DeletarState {
     
 }
- 
+const styles = (theme:any) => createStyles({})
 class Deletar extends React.Component<DeletarProps, DeletarState> {
+    
     constructor(props:DeletarProps)
     {
         super(props);
@@ -31,12 +33,13 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
        Database.deletarProduto(id);
     }
     render(): JSX.Element { 
-        return (  <section className="deletar">
-            <Typography variant="h3">Você tem certeza que deseja deletar este produto?</Typography>
-            <Link onClick={this.deletar} to="/" className="btn btn-danger deletar__sim">Sim</Link>
-            <Link to="/" className="btn btn-info deletar__nao">Não</Link>
-        </section>);
+        const { classes } = this.props;
+        return (  <Grid container alignItems="center" direction="column">
+            <Grid item><Typography variant="h3">Você tem certeza que deseja deletar este produto?</Typography></Grid>
+            <Grid item><Link onClick={this.deletar} to="/" className="btn btn-danger deletar__sim">Sim</Link>
+            <Link to="/" className="btn btn-info deletar__nao">Não</Link></Grid>
+        </Grid>);
     }
 }
  
-export default Deletar;
+export default withStyles(styles)(Deletar);
