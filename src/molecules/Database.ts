@@ -47,7 +47,7 @@ class Database {
         let objeto = await get(idAtual, this.ObterDB());
         while (objeto !== undefined) {
             idAtual--;
-            del(idAtual, this.ObterDB()); //cuidado
+            del(idAtual, this.ObterDB());
             set(idAtual, objeto, this.ObterDB());
             idAtual++;
             idAtual++;

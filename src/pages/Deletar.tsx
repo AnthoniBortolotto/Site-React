@@ -39,11 +39,6 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
     constructor(props:DeletarProps)
     {
         super(props);
-        this.deletar = this.deletar.bind(this);
-    }
-    private deletar(): void
-    {
-        
     }
     render(): JSX.Element { 
         const {id} = this.props.location.state;
@@ -53,7 +48,7 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
             <Grid item><Typography variant="h3" className={classes.deletarTituloStyle}>Você tem certeza que deseja deletar este produto?</Typography></Grid>
             <Grid item><Button className={classes.btnDeletarStyle} variant="contained" color="secondary" onClick={() => {
                 Database.deletarProduto(id);
-                this.props.history.push('/');
+                window.location.href = "http://localhost:8080/";
             }}>Sim</Button>
             <Button variant="contained" color="primary" onClick={() => {
                 this.props.history.push('/');
