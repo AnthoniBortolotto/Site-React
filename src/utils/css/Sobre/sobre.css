@@ -1,14 +1,5 @@
 .sobre{
     width: 60%;
     margin: auto;
-}
-.sobre__titulo{
-    margin-top: 2rem;
-    text-align: center;
-}
-.sobre__texto{
-    font-size: medium;
-    margin-top: 4rem;
-    text-align: justify;
-    margin-bottom: 13rem;
+    margin-bottom: 15rem;
 }

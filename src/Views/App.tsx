@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Component } from 'react';
 import Tabela from "./Tabela/Tabela";
-import Cabecario from "./Header/Cabecario";
-import Rodape from "./Footer/Rodape";
 
 export interface Props {
 

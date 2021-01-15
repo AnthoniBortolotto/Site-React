@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Component } from 'react';
 import "../../utils/css/form/forms.css";
-import "../../utils/css/form/mensagens.css";
 import Database from "../../Models/Database";
 import Produto from '../../Models/Produto';
-import { Link, Redirect } from 'react-router-dom';
 import Verificacao from '../../Models/Verificacao';
 import TextField from '@material-ui/core/TextField/TextField';
 import { Button, createStyles, Grid, makeStyles, Theme, Typography, WithStyles, withStyles } from '@material-ui/core';

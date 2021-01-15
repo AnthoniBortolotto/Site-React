@@ -9,8 +9,3 @@
     padding: 0.1rem;
     margin-right: 0.3rem;
 }
-
-.lista__menu__item__ancora:hover {
-    transition: 500ms;
-    text-decoration: underline;
-}

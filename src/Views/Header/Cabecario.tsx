@@ -1,8 +1,5 @@
 import { AppBar, Button, colors, createMuiTheme, Grid, makeStyles,} from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { classicNameResolver } from 'typescript';
 
 export interface Props {
 

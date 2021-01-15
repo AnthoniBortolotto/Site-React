@@ -1,8 +1,3 @@
-.titulo {
-    padding-top: 0.5rem;
-    padding-bottom: 1rem;
-}
-
 .tabela {
     width: 60% !important;
     margin: auto;
@@ -30,12 +25,4 @@
 
 .tabela__icone-lapis:hover {
     background: url("../img/lapisEscrevendo.png") no-repeat;
-}
-
-.botao-add {
-    display: block;
-    margin-top: 3rem;
-    margin-left: 17rem;
-    margin-right: 57rem;
-    margin-bottom: 5rem;
 }

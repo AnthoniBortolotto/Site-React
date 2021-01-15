@@ -1,7 +1,5 @@
 import { createStyles, Typography, WithStyles, withStyles } from '@material-ui/core';
-import React, { Component } from 'react'
-import Rodape from '../Footer/Rodape';
-import Cabecario from '../Header/Cabecario';
+import React from 'react'
 
 export interface Props extends WithStyles<typeof styles> {
     

@@ -1,9 +1,7 @@
 import { Button, createStyles, Grid, withStyles, WithStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import Database from '../../Models/Database';
-import "../../utils/css/deletar.css";
 
 export interface IDeletarState{
     produto:Promise<unknown>
@@ -24,13 +22,16 @@ export interface DeletarState {
     
 }
 const styles = (theme:any) => createStyles({
+    btnDeletarStyle: {
+        marginRight: '2rem'
+    },
     deletarTituloStyle: {
         marginTop: '4rem',
         marginBottom: '3rem',
         textAlign: 'center'
     },
-    btnDeletarStyle: {
-        marginRight: '2rem'
+    gridContainerStyle:{
+        marginBottom: '23rem'
     }
 })
 class Deletar extends React.Component<DeletarProps, DeletarState> {
@@ -47,7 +48,7 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
     render(): JSX.Element { 
         const {id} = this.props.location.state;
         const { classes } = this.props;
-        if(id !== undefined) return ( <Grid container alignItems="center" direction="column">
+        if(id !== undefined) return ( <Grid container className={classes.gridContainerStyle} alignItems="center" direction="column">
             {console.log(id)}
             <Grid item><Typography variant="h3" className={classes.deletarTituloStyle}>Você tem certeza que deseja deletar este produto?</Typography></Grid>
             <Grid item><Button className={classes.btnDeletarStyle} variant="contained" color="secondary" onClick={() => {

@@ -3,33 +3,3 @@
     margin-top: 2rem;
     padding: auto;
 }
-
-.formulario__etiqueta {
-    display: block;
-    margin: 0.5rem;
-    margin-left: 35rem;
-}
-
-.formulario__btn__add {
-    margin: auto;
-    margin-top: 1rem;
-    margin-left: 35rem;
-    margin-bottom: 3rem;
-}
-.formulario__btn__edit {
-    margin: auto;
-    margin-top: 1rem;
-    margin-left: 35rem;
-    margin-bottom: 3rem;
-}
-
-.formulario__btn__voltar {
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-bottom: 3rem;
-}
-
-.formulario__txt {
-    margin: auto;
-    margin-left: 35rem;
-}
