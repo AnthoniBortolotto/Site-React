@@ -1,20 +1,20 @@
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
-import Rodape from '../Views/Footer/Rodape';
-import Cabecario from '../Views/Header/Cabecario';
-import "../utils/css/bootstrap.min.css";
+import Rodape from '../organisms/Rodape';
+import Cabecario from '../organisms/Cabecario';
+import "../atoms/css/bootstrap.min.css";
 
-import "../utils/css/index.css";
-import "../utils/css/menu.css";
-import "../utils/css/tabela.css";
+import "../atoms/css/index.css";
+import "../atoms/css/menu.css";
+import "../atoms/css/tabela.css";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-const App = lazy(() => import('../Views/App'));
-const Deletar = lazy(() => import('../Views/Tabela/Deletar'));
+const App = lazy(() => import('./App'));
+const Deletar = lazy(() => import('../pages/Deletar'));
 
-const PaginaNaoEncontrada = lazy(() => import("../Views/NotFound/PaginaNaoEncontrada"));
-const AddEdit = lazy(() => import("../Views/Tabela/AddEdit"));
-const Sobre = lazy(() => import("../Views/Sobre/Sobre"));
+const PaginaNaoEncontrada = lazy(() => import("../pages/PaginaNaoEncontrada"));
+const AddEdit = lazy(() => import("../pages/AddEdit"));
+const Sobre = lazy(() => import("../pages/Sobre"));
 export const theme = createMuiTheme({
   palette: {
     primary: {

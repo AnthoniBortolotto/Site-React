@@ -1,7 +1,7 @@
 import { Button, createStyles, Grid, withStyles, WithStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import React, { Component } from 'react'
-import Database from '../../Models/Database';
+import Database from '../molecules/Database';
 
 export interface IDeletarState{
     produto:Promise<unknown>

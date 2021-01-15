@@ -9,7 +9,7 @@ export interface State {
 
 }
 //@ts-ignore
-import logo from "../../utils/img/logo.jpg";
+import logo from "../atoms/img/logo.jpg";
 
 
 

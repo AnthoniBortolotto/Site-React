@@ -1,4 +1,4 @@
-import Database from "./Database";
+import Database from "../molecules/Database";
 
 class Verificacao {
     public static async verificarNome(nome: string, nomeOriginal: string | undefined) {

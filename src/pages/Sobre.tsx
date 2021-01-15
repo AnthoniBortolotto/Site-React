@@ -1,6 +1,6 @@
 import { createStyles, Typography, withStyles, WithStyles } from '@material-ui/core';
-import React, { Component } from 'react'
-import "../../utils/css/Sobre/sobre.css"
+import React, { Component } from 'react';
+import "../atoms/css/Sobre/sobre.css";
 export interface SobreProps  extends WithStyles<typeof styles>{
     
 }

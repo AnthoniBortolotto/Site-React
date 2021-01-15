@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tabela from "./Tabela/Tabela";
+import Tabela from "../pages/Tabela";
 
 export interface Props {
 

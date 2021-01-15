@@ -2,7 +2,7 @@ const path = require('path')
 //const plugins = [];
 module.exports = {
   entry: {
-      home: path.resolve(__dirname,'./src/Controllers/Index.tsx'),
+      home: path.resolve(__dirname,'./src/templates/index.tsx'),
     //   adicionar: path.resolve(__dirname,'./src/Views/Tabela/Adicionar.tsx'),
     //  // Tabela: './src/Views/Tabela/Tabela.tsx',
     //   NotFound: path.resolve(__dirname,'./src/Views/NotFound/PaginaNaoEncontrada.tsx')

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import "../../utils/css/form/forms.css";
-import Database from "../../Models/Database";
-import Produto from '../../Models/Produto';
-import Verificacao from '../../Models/Verificacao';
+import "../atoms/css/form/forms.css";
+import Database from "../molecules/Database";
+import Produto from '../atoms/Produto';
+import Verificacao from '../organisms/Verificacao';
 import TextField from '@material-ui/core/TextField/TextField';
 import { Button, createStyles, Grid, makeStyles, Theme, Typography, WithStyles, withStyles } from '@material-ui/core';
 

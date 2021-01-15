@@ -1,4 +1,4 @@
-import Produto from "./Produto";
+import Produto from "../atoms/Produto";
 import { Store, set, get, keys, del } from "idb-keyval";
 class Database {
     private static ObterDB(): Store {
