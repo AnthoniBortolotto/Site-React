@@ -1,12 +1,15 @@
 import Database from "../molecules/Database";
 
 class Verificacao {
-    public static async verificarNome(nome: string, nomeOriginal: string | undefined) {
+    public static async verificarNome(nome: string, nomeOriginal: string | undefined): Promise<"" | "já existe um produto com esse nome" | "O campo deve estar preenchido" | "É apenas permitido letras" | "Não pode terminar com espaços"> {
         if (nome == "") {
             return "O campo deve estar preenchido";
         }
-        else if (/[^a-z|A-Z|ã|â|ê|õ|ç]/.test(nome)) {
+        else if (/[^a-z|A-Z|ã|â|ê|õ|ç| ]/.test(nome)) {
             return "É apenas permitido letras";
+        }
+        else if(/[ ]$/.test(nome)){
+            return "Não pode terminar com espaços"
         }
         else //testar se funciona
         {
