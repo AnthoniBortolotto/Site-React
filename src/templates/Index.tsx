@@ -36,11 +36,11 @@ export const themeAdd = createMuiTheme({
   },
 });
 ReactDOM.render(
-  <Suspense fallback={<div></div>}>
+  
     <ThemeProvider theme={theme} >
       <BrowserRouter>
         <Cabecario />
-
+        <Suspense fallback={<div></div>}>
         <Switch>
 
           <Route path='/' exact={true} component={App} />
@@ -53,10 +53,11 @@ ReactDOM.render(
 
 
         </Switch>
+        </Suspense>
       </BrowserRouter>
       <Rodape />
     </ThemeProvider>
-  </Suspense>,
+  ,
   document.getElementById('app')
 );
 

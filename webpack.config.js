@@ -1,12 +1,8 @@
 const path = require('path');
-const CompressionPlugin = require('compression-webpack-plugin');
-//const plugins = [];
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
-      home: path.resolve(__dirname,'./src/templates/index.tsx'),
-    //   adicionar: path.resolve(__dirname,'./src/Views/Tabela/Adicionar.tsx'),
-    //  // Tabela: './src/Views/Tabela/Tabela.tsx',
-    //   NotFound: path.resolve(__dirname,'./src/Views/NotFound/PaginaNaoEncontrada.tsx')
+    home: path.resolve(__dirname, './src/templates/index.tsx'),
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -42,12 +38,18 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      hash: true,
+      template: path.resolve(__dirname,'./src/templates/index.html'),
+      filename: path.resolve(__dirname,'./dist/index.html')
+    })
+  ],
   devServer: {
     port: 8080,
     contentBase: path.resolve(__dirname, './dist'),
     compress: true,
     historyApiFallback: true,
-  },
-  "plugins": [ new CompressionPlugin ]
-  
+  }
+
 }
