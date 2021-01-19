@@ -10,11 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Grid,Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button/'
 import {createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
-
-
-
 export interface TabelaProps extends WithStyles<typeof styles> {
-
 }
 
 export interface TabelaState {
@@ -25,9 +21,7 @@ export interface TabelaState {
 const styles = (theme:any) => createStyles({
     btnStyles: {
         marginTop: '3rem',
-        '&:hover': {
-            color: '#ffffff'
-        },
+        
         [theme.breakpoints.up('xs')]: {
             marginLeft: '1rem',
         },
@@ -49,6 +43,13 @@ const styles = (theme:any) => createStyles({
         fontFamily: 'Arial, sans-serif',
         fontSize: '11pt',
         textAlign: 'center'
+    },
+    linkBtnStyle: {
+        color: "#ffffff",
+        '&:hover': {
+            color: '#ffffff',
+            textDecoration: 'none'
+        },
     }
 });
 class Tabela extends React.Component<TabelaProps, TabelaState> {
@@ -109,7 +110,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         </Table>
                     </Grid>
                     <Grid item>
-                        <Button className={classes.btnStyles} href="http://localhost:8080/AddEdit" variant="contained" color="primary">Adicionar Produto</Button>
+                        <Button className={classes.btnStyles} variant="contained" color="primary"><Link className={classes.linkBtnStyle} to="/AddEdit">Adicionar Produto</Link></Button>
                     </Grid>
                 </TableContainer>
             </Grid>);
