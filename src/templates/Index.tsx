@@ -9,7 +9,7 @@ import "../atoms/css/index.css";
 import "../atoms/css/menu.css";
 import "../atoms/css/tabela.css";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-const App = lazy(() => import('./App'));
+const Tabela = lazy(() => import('../pages/Tabela'));
 const Deletar = lazy(() => import('../pages/Deletar'));
 
 const PaginaNaoEncontrada = lazy(() => import("../pages/PaginaNaoEncontrada"));
@@ -42,7 +42,7 @@ ReactDOM.render(
       <Cabecario />
       <Suspense fallback={<div></div>}>
         <Switch>
-          <Route path='/' exact={true} component={App} />
+          <Route path='/' exact={true} component={Tabela} />
           <Route path='/Sobre' component={Sobre} />
           
           <ThemeProvider theme={themeAdd}>
