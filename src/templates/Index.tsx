@@ -12,7 +12,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 const Tabela = lazy(() => import('../pages/Tabela'));
 const Deletar = lazy(() => import('../pages/Deletar'));
 
-const PaginaNaoEncontrada = lazy(() => import("../pages/PaginaNaoEncontrada"));
+//const PaginaNaoEncontrada = lazy(() => import("../pages/PaginaNaoEncontrada"));
 const AddEdit = lazy(() => import("../pages/AddEdit"));
 const Sobre = lazy(() => import("../pages/Sobre"));
 export const theme = createMuiTheme({

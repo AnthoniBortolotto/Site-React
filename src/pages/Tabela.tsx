@@ -10,12 +10,19 @@ import TableRow from '@material-ui/core/TableRow';
 import { Grid,Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button/'
 import {createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+import TiposMensagem from '../atoms/TiposMensagem';
+import Mensagem from '../molecules/Mensagem';
 export interface TabelaProps extends WithStyles<typeof styles> {
+    location: TabelaLocation
 }
 
 export interface TabelaState {
     produtos: unknown[],
-
+    tipoAviso: TiposMensagem,
+    msg: string 
+}
+export interface TabelaLocation {
+    state: TabelaState
 }
 
 const styles = (theme:any) => createStyles({
@@ -55,10 +62,23 @@ const styles = (theme:any) => createStyles({
 class Tabela extends React.Component<TabelaProps, TabelaState> {
     constructor(props: TabelaProps) {
         super(props);
-
-        this.state = {
-            produtos: []
+        try{
+            const {tipoAviso} = this.props.location.state;
+            const {msg} = this.props.location.state;
+            this.state = {
+                produtos: [],
+                tipoAviso: tipoAviso,
+                msg: msg
+            }
         }
+        catch{
+            this.state = {
+                produtos: [],
+                tipoAviso: 2,
+                msg: ''
+            }
+        }
+        
         this.atualizarProdutos();
 
     }
@@ -82,11 +102,19 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             })
         )
     }
-
+    private mostrarMsg(){
+        console.log("Aviso: " + this.state.tipoAviso)
+        if(this.state.msg === '' || this.state.tipoAviso === 2){
+            return(<></>)
+        }
+        else{
+            return(<Mensagem tipoMensagem={this.state.tipoAviso} msg={this.state.msg}/>)
+        }
+    }
     render(): JSX.Element {
 
         const { classes } = this.props;
-        return (
+        return (<>
             <Grid container direction="column">
                 <TableContainer className="produtos">
 
@@ -113,7 +141,9 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         <Button className={classes.btnStyles} variant="contained" color="primary"><Link className={classes.linkBtnStyle} to="/AddEdit">Adicionar Produto</Link></Button>
                     </Grid>
                 </TableContainer>
-            </Grid>);
+            </Grid>
+            {this.mostrarMsg()}
+            </>);
     }
 }
 

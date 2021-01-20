@@ -7,18 +7,18 @@ import TextField from '@material-ui/core/TextField/TextField';
 import { Button, createStyles, Grid, makeStyles, Theme, Typography, WithStyles, withStyles } from '@material-ui/core';
 
 
-export interface IEditarState {
+export interface IAddEditState {
     id: number | undefined
 }
-export interface IAdicionarLocation {
-    state: IEditarState
+export interface IAddEditLocation {
+    state: IAddEditState
 }
 interface Ipush {
-    push(link: string): void
+    push(link:any): void
 }
 export interface AddEditProps extends WithStyles<typeof styles> {
     history: Ipush
-    location: IAdicionarLocation
+    location: IAddEditLocation
 }
 
 export interface AddEditState {
@@ -172,12 +172,18 @@ class AddEdit extends React.Component<AddEditProps, AddEditState> {
         }
         else if (this.state.nomeOriginal === undefined) {
             Database.adicionarProduto(new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
-            this.props.history.push('/');
+            this.props.history.push({
+                pathname: '/',
+                state: {tipoAviso: 1, msg: "Produto adicionado com sucesso"}
+            });
         }
         else {
             const { id } = this.props.location.state;
             Database.editarProduto(id as number, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
-            this.props.history.push('/');
+            this.props.history.push({
+                pathname: '/',
+                state: {tipoAviso: 1, msg: "Produto Editado com sucesso"}
+            });
         }
     }
     render(): JSX.Element {
