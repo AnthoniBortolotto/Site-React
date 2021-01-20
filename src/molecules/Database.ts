@@ -54,10 +54,9 @@ class Database {
             objeto = await get(idAtual, this.ObterDB());
         }
         idAtual--;
-        del(idAtual,this.ObterDB());
+        del(idAtual, this.ObterDB());
         return;
     }
-    //Edita o produto desejado inserindo a posição e produto novo.
     public static editarProduto(id: number, produtoNovo: Produto): void {
         del(id, this.ObterDB());
         set(id, produtoNovo, this.ObterDB());

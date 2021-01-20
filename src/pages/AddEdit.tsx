@@ -162,6 +162,24 @@ class AddEdit extends React.Component<AddEditProps, AddEditState> {
                 }
             });
     }
+    private ClicarBotaoAddEdit() {
+        let nome = this.state.erroNome;
+        let qtd = this.state.erroQtd;
+        let prcComp = this.state.erroPrcC;
+        let prcVend = this.state.erroPrcV;
+        if (nome || qtd || prcComp || prcVend || this.state.nome === '' || this.state.quantidade === '' || this.state.precoCompra === '' || this.state.precoVenda === '') {
+            return;
+        }
+        else if (this.state.nomeOriginal === undefined) {
+            Database.adicionarProduto(new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
+            this.props.history.push('/');
+        }
+        else {
+            const { id } = this.props.location.state;
+            Database.editarProduto(id as number, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
+            this.props.history.push('/');
+        }
+    }
     render(): JSX.Element {
         const { classes } = this.props;
         return (
@@ -175,22 +193,7 @@ class AddEdit extends React.Component<AddEditProps, AddEditState> {
                         <TextField error={this.state.erroPrcV} helperText={this.state.msgPrcV} value={this.state.precoVenda} onChange={this.handlerTxtPrecoVend} variant="outlined" label="Preço de Venda" type="text" id="txt-prc-vend" className={classes.txtStyle} />
                         <Grid item>
                             <Button variant="contained" color="primary" className={classes.btnStyle} onClick={() => {
-                                let nome = this.state.erroNome;
-                                let qtd = this.state.erroQtd;
-                                let prcComp = this.state.erroPrcC;
-                                let prcVend = this.state.erroPrcV;
-                                if (nome || qtd || prcComp || prcVend || this.state.nome === '' || this.state.quantidade === '' || this.state.precoCompra === '' || this.state.precoVenda === '') {
-                                    return;
-                                }
-                                else if (this.state.nomeOriginal === undefined) {
-                                    Database.adicionarProduto(new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
-                                    this.props.history.push('/');
-                                }
-                                else {
-                                    const { id } = this.props.location.state;
-                                    Database.editarProduto(id as number, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
-                                    this.props.history.push('/');
-                                }
+                                this.ClicarBotaoAddEdit()
                             }} >{this.state.txtBtn}</Button>
                             <Button className={classes.btnStyle} onClick={() => {
                                 this.props.history.push('/');

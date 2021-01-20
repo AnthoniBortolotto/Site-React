@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Rodape from '../organisms/Rodape';
 import Cabecario from '../organisms/Cabecario';
 import "../atoms/css/bootstrap.min.css";
@@ -36,27 +36,28 @@ export const themeAdd = createMuiTheme({
   },
 });
 ReactDOM.render(
-  
-    <ThemeProvider theme={theme} >
-      <BrowserRouter>
-        <Cabecario />
-        <Suspense fallback={<div></div>}>
-        <Switch>
 
+  <ThemeProvider theme={theme} >
+    <BrowserRouter>
+      <Cabecario />
+      <Suspense fallback={<div></div>}>
+        <Switch>
           <Route path='/' exact={true} component={App} />
-          <Route path='/Sobre' component={Sobre}/>
+          <Route path='/Sobre' component={Sobre} />
+          
           <ThemeProvider theme={themeAdd}>
             <Route path='/AddEdit' component={AddEdit} />
             <Route path='/Deletar' component={Deletar} />
-            {/* <Route component={PaginaNaoEncontrada} /> */}
+
           </ThemeProvider>
+          {/* <Route component={PaginaNaoEncontrada} /> */}
 
 
         </Switch>
-        </Suspense>
-      </BrowserRouter>
-      <Rodape />
-    </ThemeProvider>
+      </Suspense>
+    </BrowserRouter>
+    <Rodape />
+  </ThemeProvider>
   ,
   document.getElementById('app')
 );

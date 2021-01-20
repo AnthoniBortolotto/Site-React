@@ -14,9 +14,9 @@ import logo from "../atoms/img/logo.jpg";
 
 const styles = (theme:any) => createStyles({
     linksBtnsCabecarioStyle:{
-        color: "#000000",
+        color: "#ffffff",
         '&:hover': {
-            color: '#ffffff',
+            color: '#000000',
             textDecoration: 'none'
         },
     }
