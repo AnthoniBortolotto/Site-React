@@ -13,7 +13,7 @@ class Database {
         }).then(res => { return key });
     }
 
-    public static adicionarProduto(produto: Produto): void {
+    public static async adicionarProduto(produto: Produto): Promise<void> {
         let key = this.keyDisponivel();
         key.then(res => set(res, produto, this.ObterDB()));
     }
@@ -57,7 +57,7 @@ class Database {
         del(idAtual, this.ObterDB());
         return;
     }
-    public static editarProduto(id: number, produtoNovo: Produto): void {
+    public static async editarProduto(id: number, produtoNovo: Produto): Promise<void> {
         del(id, this.ObterDB());
         set(id, produtoNovo, this.ObterDB());
     }

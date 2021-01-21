@@ -171,19 +171,37 @@ class AddEdit extends React.Component<AddEditProps, AddEditState> {
             return;
         }
         else if (this.state.nomeOriginal === undefined) {
-            Database.adicionarProduto(new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
-            this.props.history.push({
-                pathname: '/',
-                state: {tipoAviso: 1, msg: "Produto adicionado com sucesso"}
-            });
+            Database.adicionarProduto(new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)))
+            .then(() =>{
+                this.props.history.push({
+                    pathname: '/',
+                    state: {tipoAviso: 1, msg: "Produto adicionado com sucesso"}
+                });
+            })
+            .catch(() => {
+                this.props.history.push({
+                    pathname: '/',
+                    state: {tipoAviso: 0, msg: "Ocorreu um erro ao adicionar o produto"}
+                });
+            })
+            
         }
         else {
             const { id } = this.props.location.state;
-            Database.editarProduto(id as number, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)));
-            this.props.history.push({
-                pathname: '/',
-                state: {tipoAviso: 1, msg: "Produto Editado com sucesso"}
-            });
+            Database.editarProduto(id as number, new Produto(this.state.nome, parseInt(this.state.quantidade), parseFloat(this.state.precoCompra), parseFloat(this.state.precoVenda)))
+            .then(() =>{
+                this.props.history.push({
+                    pathname: '/',
+                    state: {tipoAviso: 1, msg: "Produto Editado com sucesso"}
+                });
+            })
+            .catch(() => {
+                this.props.history.push({
+                    pathname: '/',
+                    state: {tipoAviso: 1, msg: "Ocorreu um erro ao Editar o produto"}
+                });
+            })
+            
         }
     }
     render(): JSX.Element {

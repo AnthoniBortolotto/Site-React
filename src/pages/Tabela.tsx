@@ -68,7 +68,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             msg: ''
         }
         this.atualizarProdutos();
-        
+
     }
     private atualizarProdutos(): void {
         Database.dadosTabela().then(res => {
@@ -135,7 +135,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                         </Table>
                     </Grid>
                     <Grid item>
-                        <Button className={classes.btnStyles} variant="contained" color="primary"><Link className={classes.linkBtnStyle} to="/AddEdit">Adicionar Produto</Link></Button>
+                        <Link className={classes.linkBtnStyle} to="/AddEdit"><Button className={classes.btnStyles} variant="contained" color="primary">Adicionar Produto</Button></Link>
                     </Grid>
                 </TableContainer>
             </Grid>

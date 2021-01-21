@@ -8,7 +8,7 @@ export interface IDeletarState {
     id: number | undefined
 }
 interface Ipush {
-    push(link: string): void
+    push(link: any): void
 }
 export interface IDeletarLocation {
     state: IDeletarState
@@ -42,7 +42,16 @@ class Deletar extends React.Component<DeletarProps, DeletarState> {
     private ClicarDeletar() {
         const { id } = this.props.location.state;
         Database.deletarProduto(id as number).then(() =>{
-            this.props.history.push('/');;
+            this.props.history.push({
+                pathname: '/',
+                state: {tipoAviso: 1, msg: "Produto deletado com sucesso"}
+            });
+        })
+        .catch(() => {
+            this.props.history.push({
+                pathname: '/',
+                state: {tipoAviso: 0, msg: "Ocorreu um erro ao deletar o produto"}
+            });
         });
     }
     render(): JSX.Element {
