@@ -68,6 +68,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             msg: ''
         }
         this.atualizarProdutos();
+        
     }
     private atualizarProdutos(): void {
         Database.dadosTabela().then(res => {
@@ -91,22 +92,21 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
     }
     private mostrarMsg() {
         try {
-            const {msg} = this.props.location.state;
-            console.log(msg);
-            const {tipoAviso} = this.props.location.state;
-            console.log(tipoAviso);
-            if (msg === '' || tipoAviso === 2) {
+            const mensagem = this.props.location.state.msg;
+            const tipoMsg = this.props.location.state.tipoAviso;
+            if (mensagem === '' || tipoMsg === 2) {
                 console.log("fora");
                 return (<></>)
             }
             else {
-                return (<Mensagem tipoMensagem={tipoAviso} msg={msg} />)
+                window.history.replaceState(null, 'Loginha');
+                return (<Mensagem tipoMensagem={tipoMsg} msg={mensagem} />)
             }
         }
-        catch{
+        catch {
             return (<></>)
         }
-        
+
     }
     render(): JSX.Element {
 
