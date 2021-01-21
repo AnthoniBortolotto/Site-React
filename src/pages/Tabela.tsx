@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Database from "../molecules/Database";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid,Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button/'
-import {createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
 import TiposMensagem from '../atoms/TiposMensagem';
 import Mensagem from '../molecules/Mensagem';
 export interface TabelaProps extends WithStyles<typeof styles> {
@@ -19,16 +19,16 @@ export interface TabelaProps extends WithStyles<typeof styles> {
 export interface TabelaState {
     produtos: unknown[],
     tipoAviso: TiposMensagem,
-    msg: string 
+    msg: string
 }
 export interface TabelaLocation {
     state: TabelaState
 }
 
-const styles = (theme:any) => createStyles({
+const styles = (theme: any) => createStyles({
     btnStyles: {
         marginTop: '3rem',
-        
+
         [theme.breakpoints.up('xs')]: {
             marginLeft: '1rem',
         },
@@ -62,25 +62,12 @@ const styles = (theme:any) => createStyles({
 class Tabela extends React.Component<TabelaProps, TabelaState> {
     constructor(props: TabelaProps) {
         super(props);
-        try{
-            const {tipoAviso} = this.props.location.state;
-            const {msg} = this.props.location.state;
-            this.state = {
-                produtos: [],
-                tipoAviso: tipoAviso,
-                msg: msg
-            }
+        this.state = {
+            produtos: [],
+            tipoAviso: 2,
+            msg: ''
         }
-        catch{
-            this.state = {
-                produtos: [],
-                tipoAviso: 2,
-                msg: ''
-            }
-        }
-        
         this.atualizarProdutos();
-
     }
     private atualizarProdutos(): void {
         Database.dadosTabela().then(res => {
@@ -102,14 +89,24 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             })
         )
     }
-    private mostrarMsg(){
-        console.log("Aviso: " + this.state.tipoAviso)
-        if(this.state.msg === '' || this.state.tipoAviso === 2){
-            return(<></>)
+    private mostrarMsg() {
+        try {
+            const {msg} = this.props.location.state;
+            console.log(msg);
+            const {tipoAviso} = this.props.location.state;
+            console.log(tipoAviso);
+            if (msg === '' || tipoAviso === 2) {
+                console.log("fora");
+                return (<></>)
+            }
+            else {
+                return (<Mensagem tipoMensagem={tipoAviso} msg={msg} />)
+            }
         }
-        else{
-            return(<Mensagem tipoMensagem={this.state.tipoAviso} msg={this.state.msg}/>)
+        catch{
+            return (<></>)
         }
+        
     }
     render(): JSX.Element {
 
@@ -143,7 +140,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
                 </TableContainer>
             </Grid>
             {this.mostrarMsg()}
-            </>);
+        </>);
     }
 }
 

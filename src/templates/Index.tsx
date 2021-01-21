@@ -4,8 +4,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Rodape from '../organisms/Rodape';
 import Cabecario from '../organisms/Cabecario';
 import "../atoms/css/bootstrap.min.css";
-
-import "../atoms/css/index.css";
 import "../atoms/css/menu.css";
 import "../atoms/css/tabela.css";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';

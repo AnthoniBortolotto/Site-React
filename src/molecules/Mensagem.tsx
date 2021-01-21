@@ -13,6 +13,10 @@ const useStyles = makeStyles({
     right: '1rem',
     backgroundColor: "#b71c1c"
   },
+  BlocoMensagemDesapareceStyle: {
+    display: 'none',
+    position: 'absolute'
+  },
   BlocoMensagemAcertoStyle: {
     position: 'absolute',
     bottom: '5rem',
@@ -26,38 +30,40 @@ const useStyles = makeStyles({
 });
 
 function Mensagem(props: MensagemProps): JSX.Element {
-  console.log("TipoMensagem: " + props.tipoMensagem)
-  let tipoMensagem = props.tipoMensagem;
   const classes = useStyles();
-  // const [progresso, setProgresso] = useState(0);
-  // setProgresso(100);
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setProgresso(progresso => progresso - 1);
-  //       if (progresso <= 0) {
-  //         tipoMensagem = 3;
-  //         return;
-  //       };
-  //     }, 500);
-  //     return () => clearInterval(interval);
-  //   }, []);
-  let cor
-  if (tipoMensagem === 0) {
+  let cor = classes.BlocoMensagemDesapareceStyle;
+  if (props.tipoMensagem === 0) {
     cor = classes.BlocoMensagemErroStyle;
   }
-  else if (tipoMensagem === 1) {
+  else if (props.tipoMensagem === 1) {
     cor = classes.BlocoMensagemAcertoStyle;
   }
+  const [progresso, setProgresso] = useState(100);
+
+  if (progresso >= 0) {
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setProgresso(progresso => progresso - 5);
+      }, 250)
+      return () => clearInterval(interval);
+    });
+    return (<Card className={cor}>
+      <CardContent>
+        <Typography className={classes.txtMensagemStyle}>{props.msg}</Typography>
+      </CardContent>
+      <LinearProgress variant="determinate" value={progresso} />
+    </Card>);
+  }
   else {
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setProgresso(progresso => progresso - 5);
+      }, 250)
+      return () => clearInterval(interval);
+    });
     return (<></>);
   }
-  console.log("cor:" + cor)
-  return (<Card className={cor}>
-    <CardContent>
-      <Typography className={classes.txtMensagemStyle}>{props.msg}</Typography>
-    </CardContent>
-    {/* <LinearProgress variant="determinate" value={progresso} /> */}
-  </Card>);
+
 }
 
 export default Mensagem;
