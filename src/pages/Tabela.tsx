@@ -75,6 +75,9 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
             this.setState({ produtos: res })
         });
     }
+    componentDidMount(){
+        this.atualizarProdutos();
+    }
     private montarTabela(): JSX.Element[] {
         const { classes } = this.props;
         return (

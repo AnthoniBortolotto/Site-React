@@ -5,7 +5,7 @@ class Verificacao {
         if (nome == "") {
             return "O campo deve estar preenchido";
         }
-        else if (/[^a-z|A-Z|ã|â|ê|õ|ç|Á|é|É| ]/.test(nome)) {
+        else if (/[^a-z|A-Z|ã|â|ê|õ|ç|Á|á|é|É| ]/.test(nome)) {
             return "É apenas permitido letras";
         }
         else if(/[ ]$/.test(nome)){
