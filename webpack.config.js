@@ -23,11 +23,6 @@ module.exports = {
         exclude: [/node_modules/],
         use: ['style-loader', 'css-loader']
       },
-      // {
-      //   test: /\.jpg|svg|png$/,
-      //   exclude: [/node_modules/],
-      //   use: ['file-loader']
-      // },
       {
         test: /\.jpg|svg|png$/,
         exclude: [/node_modules/],

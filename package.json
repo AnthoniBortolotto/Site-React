@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --open --hot",
-    "build": "webpack --mode production --progress --hide-modules",
-    "check-type": "tsc -w"
+    "dev": "webpack serve --open --hot"
   },
   "author": "anthoni Bortolotto Martinelli <antho@outlook.com.br>",
   "license": "ISC",

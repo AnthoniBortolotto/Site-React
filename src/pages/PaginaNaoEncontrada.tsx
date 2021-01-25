@@ -15,6 +15,7 @@ class PaginaNaoEncontrada extends React.Component<Props, State> {
     }
     render() { 
         const { classes } = this.props;
+        if(window.location.pathname === '/AddEdit' || window.location.pathname === '/Deletar') return(<></>)
         return (  
              <Typography variant="h3">Você saiu do espaço tempo não há nada aqui</Typography>
         );
