@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button/'
 import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
 import TiposMensagem from '../atoms/TiposMensagem';
 import Mensagem from '../molecules/Mensagem';
+//import Mongo from '../molecules/Mongo';
 export interface TabelaProps extends WithStyles<typeof styles> {
     location: TabelaLocation
 }
@@ -114,6 +115,7 @@ class Tabela extends React.Component<TabelaProps, TabelaState> {
     render(): JSX.Element {
 
         const { classes } = this.props;
+        // Mongo.conectar();
         return (<>
             <Grid container direction="column">
                 <TableContainer className="produtos">
